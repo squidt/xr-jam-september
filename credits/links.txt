@@ -1,0 +1,2 @@
+stylized sky: https://github.com/gdquest-demos/godot-4-stylized-sky
+steam network example: https://github.com/MichaelMacha/SteamMultiplayerPeerExample/tree/demo

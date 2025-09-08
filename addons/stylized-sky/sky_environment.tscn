@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://btyv2oc8e8mi0"]
+
+[ext_resource type="Material" uid="uid://dh6ykun8bv60u" path="res://addons/stylized-sky/examples/day_sky.tres" id="1_rhpqc"]
+
+[sub_resource type="Sky" id="Sky_fpn64"]
+sky_material = ExtResource("1_rhpqc")
+
+[sub_resource type="Environment" id="Environment_6nolf"]
+background_mode = 2
+sky = SubResource("Sky_fpn64")
+
+[node name="SkyEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_6nolf")
