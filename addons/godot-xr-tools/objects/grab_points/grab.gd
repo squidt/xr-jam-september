@@ -63,10 +63,13 @@ func _init(
 	hand_point = p_point as XRToolsGrabPointHand
 
 	# Calculate the grab transform
-	if p_point:
-		transform = p_point.transform
-	elif p_precise:
+	# Always use precise when set
+	if p_precise:
 		transform = p_what.global_transform.inverse() * by.global_transform
+	# Check if valid point and use
+	elif p_point:
+		transform = p_point.transform
+	# Otherwise: default to zero transform
 	else:
 		transform = Transform3D.IDENTITY
 

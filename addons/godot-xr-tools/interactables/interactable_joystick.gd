@@ -103,44 +103,41 @@ func _process(_delta: float) -> void:
 	if grabbed_handles.is_empty():
 		return
 
-	# Get the total handle angular offsets
-	var offset_x_sum := 0.0
-	var offset_y_sum := 0.0
-	for item in grabbed_handles:
-		var handle := item as XRToolsInteractableHandle
-		var to_handle: Vector3 = handle.global_transform.origin * global_transform
-		var to_handle_origin: Vector3 = handle.handle_origin.global_transform.origin * global_transform
 
-		var to_handle_x := to_handle * VECTOR_XZ
-		var to_handle_origin_x := to_handle_origin * VECTOR_XZ
-		offset_x_sum += to_handle_origin_x.signed_angle_to(to_handle_x, Vector3.UP)
+	var offset_sum := Vector2()
+	var rotation_axis := Vector3(1.0, 1.0, 0.0).normalized()
+	var handle : XRToolsInteractableHandle = grabbed_handles.keys().front()
+	var handle_local = to_local(handle.global_position)
+	var handle_origin_local = to_local(handle.handle_origin.global_position)
+	var result = angle_between(global_position, handle_origin_local, handle_local)
 
-		var to_handle_y := to_handle * VECTOR_YZ
-		var to_handle_origin_y := to_handle_origin * VECTOR_YZ
-		offset_y_sum += to_handle_origin_y.signed_angle_to(to_handle_y, Vector3.RIGHT)
-
-	# Average the angular offsets
-	var offset_x := offset_x_sum / grabbed_handles.size()
-	var offset_y := offset_y_sum / grabbed_handles.size()
+	var shpeed = 23.0
+	result.axis = (result.axis * Vector3(1.0, 1.0, 0.0)).normalized()
 
 	# Move the joystick by the requested offset
-	move_joystick(
-		_joystick_x_position_rad + offset_x,
-		_joystick_y_position_rad + offset_y)
+	var curr = Vector3(_joystick_x_position_rad, _joystick_y_position_rad, 0.0)
+	var v3 = curr + (result.axis * result.angle) * _delta * shpeed
+	move_joystick(Vector2(v3.x, v3.y))
+
+
+# Return angle in radians
+func angle_between(origin: Vector3, p1: Vector3, p2: Vector3) -> Dictionary:
+	var v1 = (p1 - origin).normalized()
+	var v2 = (p2 - origin).normalized()
+
+	return { "axis":  v1.cross(v2).normalized(), "angle": acos(v1.dot(v2))}
 
 
 # Move the joystick to the specified position
-func move_joystick(position_x: float, position_y: float) -> void:
+func move_joystick(_hinge_position: Vector2) -> void:
 	# Do the move
-	var position := _do_move_joystick(Vector2(position_x, position_y))
-	if position.x == _joystick_x_position_rad and position.y == _joystick_y_position_rad:
-		return
+	var result := _do_move_joystick(_hinge_position)
 
 	# Update the current positon
-	_joystick_x_position_rad = position.x
-	_joystick_y_position_rad = position.y
-	joystick_x_position = rad_to_deg(position.x)
-	joystick_y_position = rad_to_deg(position.y)
+	_joystick_x_position_rad = result.x
+	_joystick_y_position_rad = result.y
+	joystick_x_position = rad_to_deg(result.x)
+	joystick_y_position = rad_to_deg(result.y)
 
 	# Emit the joystick signal
 	emit_signal("joystick_moved", joystick_x_position, joystick_y_position)
@@ -149,7 +146,7 @@ func move_joystick(position_x: float, position_y: float) -> void:
 # Handle release of joystick
 func _on_joystick_released(_interactable: XRToolsInteractableJoystick):
 	if default_on_release:
-		move_joystick(_default_x_position_rad, _default_y_position_rad)
+		move_joystick(Vector2(_default_x_position_rad, _default_y_position_rad))
 
 
 # Called when joystick_x_limit_min is set externally
@@ -217,20 +214,19 @@ func _set_default_y_position(value: float) -> void:
 
 
 # Do the joystick move
-func _do_move_joystick(position: Vector2) -> Vector2:
+func _do_move_joystick(_hinge_position: Vector2) -> Vector2:
 	# Apply joystick step-quantization
 	if _joystick_x_steps_rad:
-		position.x = round(position.x / _joystick_x_steps_rad) * _joystick_x_steps_rad
+		_hinge_position.x = round(_hinge_position.x / _joystick_x_steps_rad) * _joystick_x_steps_rad
 	if _joystick_y_steps_rad:
-		position.y = round(position.y / _joystick_y_steps_rad) * _joystick_y_steps_rad
+		_hinge_position.y = round(_hinge_position.y / _joystick_y_steps_rad) * _joystick_y_steps_rad
 
 	# Apply joystick limits
-	position.x = clamp(position.x, _joystick_x_limit_min_rad, _joystick_x_limit_max_rad)
-	position.y = clamp(position.y, _joystick_y_limit_min_rad, _joystick_y_limit_max_rad)
+	_hinge_position.x = clamp(_hinge_position.x, _joystick_x_limit_min_rad, _joystick_x_limit_max_rad)
+	_hinge_position.y = clamp(_hinge_position.y, _joystick_y_limit_min_rad, _joystick_y_limit_max_rad)
 
-	# Move if necessary
-	if position.x != _joystick_x_position_rad or position.y != _joystick_y_position_rad:
-		transform.basis = Basis.from_euler(Vector3(position.y, position.x, 0.0))
+	# Move
+	transform.basis = Basis.from_euler(Vector3(_hinge_position.x, _hinge_position.y, 0.0))
 
-	# Return the updated position
-	return position
+	# Return the updated _hinge_position
+	return _hinge_position

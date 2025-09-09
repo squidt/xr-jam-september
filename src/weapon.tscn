@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://xmkjqkphkpgh"]
+[gd_scene load_steps=14 format=3 uid="uid://xmkjqkphkpgh"]
 
 [ext_resource type="PackedScene" uid="uid://d33dh1xqyewg6" path="res://src/gun/1919A4.blend" id="1_quwjw"]
 [ext_resource type="PackedScene" uid="uid://du32t1mb2kd7x" path="res://addons/godot-xr-tools/interactables/interactable_joystick.tscn" id="2_71yhy"]
 [ext_resource type="PackedScene" uid="uid://bddj5m7ull6g0" path="res://addons/godot-xr-tools/interactables/interactable_handle.tscn" id="3_71yhy"]
 [ext_resource type="Script" uid="uid://cfi3y8s6syw7o" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_redirect.gd" id="4_7vvfr"]
+[ext_resource type="Texture2D" uid="uid://bqbx5ak77bg4j" path="res://icon.svg" id="5_f03vt"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_pu56s"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="6_f03vt"]
 [ext_resource type="Animation" uid="uid://ccds2u22gbxn7" path="res://addons/godot-xr-tools/hands/animations/right/Grip.res" id="6_pu56s"]
@@ -33,31 +34,36 @@ metadata/_custom_type_script = "uid://krob44m8t54b"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.132748, -0.170135)
 
 [node name="InteractableJoystick" parent="Interactions" instance=ExtResource("2_71yhy")]
-joystick_x_limit_min = -30.0
-joystick_x_limit_max = 30.0
-joystick_y_limit_min = -5.0
-joystick_y_limit_max = 10.0
+joystick_x_limit_min = -5.0
+joystick_x_limit_max = 10.0
+joystick_y_limit_min = -30.0
+joystick_y_limit_max = 30.0
 
 [node name="HandleOrigin" type="Node3D" parent="Interactions/InteractableJoystick"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0744184, 0.478404)
 
-[node name="HandleRight" parent="Interactions/InteractableJoystick/HandleOrigin" instance=ExtResource("3_71yhy")]
+[node name="InteractableHandle" parent="Interactions/InteractableJoystick/HandleOrigin" instance=ExtResource("3_71yhy")]
+press_to_hold = false
 second_hand_grab = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/InteractableJoystick/HandleOrigin/HandleRight"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/InteractableJoystick/HandleOrigin/InteractableHandle"]
 shape = SubResource("SphereShape3D_7vvfr")
 
-[node name="GPRRight" type="Marker3D" parent="Interactions/InteractableJoystick/HandleOrigin/HandleRight" node_paths=PackedStringArray("target")]
+[node name="GPRRight" type="Marker3D" parent="Interactions/InteractableJoystick/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0136792, 0.00749958)
 script = ExtResource("4_7vvfr")
 target = NodePath("../../../GrabPointHandRight")
 metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
 
-[node name="GPRLeft" type="Marker3D" parent="Interactions/InteractableJoystick/HandleOrigin/HandleRight" node_paths=PackedStringArray("target")]
+[node name="GPRLeft" type="Marker3D" parent="Interactions/InteractableJoystick/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0136792, 0.00749958)
 script = ExtResource("4_7vvfr")
 target = NodePath("../../../GrabPointHandLeft")
 metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
+
+[node name="Sprite3D" type="Sprite3D" parent="Interactions/InteractableJoystick/HandleOrigin"]
+transform = Transform3D(0.0505056, 0, 0, 0, 0.189992, 0, 4.65661e-10, 0, 0.957937, 0, 0, 0)
+texture = ExtResource("5_f03vt")
 
 [node name="GrabPointHandRight" parent="Interactions/InteractableJoystick" instance=ExtResource("5_pu56s")]
 transform = Transform3D(1, 0, 0, 0, 0.977717, -0.209926, 0, 0.209926, 0.977717, 0.0312987, 0.112875, 0.418398)
@@ -71,5 +77,9 @@ hand_pose = SubResource("Resource_0r86o")
 remote_path = NodePath("../../../1919A4/Receiver")
 update_position = false
 update_scale = false
+
+[node name="Sprite3D" type="Sprite3D" parent="Interactions/InteractableJoystick"]
+transform = Transform3D(1, 0, 0, 0, 0.153121, 0, 0, 0, 1, 0, 0, 0)
+texture = ExtResource("5_f03vt")
 
 [editable path="1919A4"]

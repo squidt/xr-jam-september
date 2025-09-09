@@ -2,7 +2,6 @@
 class_name XRToolsInteractableHandle
 extends XRToolsPickable
 
-
 ## XR Tools Interactable Handle script
 ##
 ## The interactable handle is a (usually invisible) object extending from
@@ -18,17 +17,16 @@ extends XRToolsPickable
 ## handle is pulled further than its snap distance, then the handle is
 ## automatically released.
 
-
-## Distance from the handle origin to auto-snap the grab
-@export var snap_distance : float = 0.3
-
+## Distance from the handle origin to drop the grab
+@export var snap_distance: float = 0.3
 
 # Handle origin spatial node
 @onready var handle_origin: Node3D = get_parent()
+var _prev_transform: Transform3D
 
 
 # Add support for is_xr_class on XRTools classes
-func is_xr_class(name : String) -> bool:
+func is_xr_class(name: String) -> bool:
 	return name == "XRToolsInteractableHandle" or super(name)
 
 
@@ -39,6 +37,8 @@ func _ready() -> void:
 
 	# Ensure we start at our origin
 	transform = Transform3D.IDENTITY
+	freeze = true
+	freeze_mode = FreezeMode.FREEZE_MODE_STATIC
 
 	# Turn off processing - it will be turned on only when held
 	set_process(false)
@@ -54,13 +54,83 @@ func _process(_delta: float) -> void:
 	var origin_pos = handle_origin.global_transform.origin
 	var handle_pos = global_transform.origin
 	if handle_pos.distance_to(origin_pos) > snap_distance:
-		drop()
+		pass#drop()
 
 
 # Called when the handle is picked up
 func pick_up(by) -> void:
-	# Call the base-class to perform the pickup
-	super(by)
+	# Copy base class pickup code, however always use 'precise' pickup mode
+
+	# Skip if not enabled
+	if not enabled:
+		return
+
+	# Find the grabber information
+	var grabber := Grabber.new(by)
+
+	# Test if we're already picked up:
+	if is_picked_up():
+		# Ignore if we don't support second-hand grab
+		if second_hand_grab == SecondHandGrab.IGNORE:
+			print_verbose("%s> second-hand grab not enabled" % name)
+			return
+
+		# Ignore if either pickup isn't by a hand
+		if not _grab_driver.primary.pickup or not grabber.pickup:
+			return
+
+		# Construct the second grab
+		if second_hand_grab != SecondHandGrab.SWAP:
+			# Grab the object
+			var by_grab_point := _get_grab_point(by, _grab_driver.primary.point)
+			var grab := Grab.new(grabber, self, by_grab_point, true)
+			_grab_driver.add_grab(grab)
+
+			# Report the secondary grab
+			grabbed.emit(self, by)
+			return
+
+		# Swapping hands, let go with the primary grab
+		print_verbose("%s> letting go to swap hands" % name)
+		let_go(_grab_driver.primary.by, Vector3.ZERO, Vector3.ZERO)
+
+	# Remember the mode before pickup
+	match release_mode:
+		ReleaseMode.UNFROZEN:
+			restore_freeze = false
+
+		ReleaseMode.FROZEN:
+			restore_freeze = true
+
+		_:
+			restore_freeze = freeze
+
+	# turn off physics on our pickable object
+	freeze = true
+	collision_layer = picked_up_layer
+	collision_mask = 0
+
+	# Find a suitable primary hand grab
+	var by_grab_point := _get_grab_point(by, null)
+
+	# Construct the grab driver
+	if by.picked_up_ranged:
+		if ranged_grab_method == RangedMethod.LERP:
+			var grab := Grab.new(grabber, self, by_grab_point, false)
+			_grab_driver = XRToolsGrabDriver.create_lerp(self, grab, ranged_grab_speed)
+		else:
+			var grab := Grab.new(grabber, self, by_grab_point, false)
+			_grab_driver = XRToolsGrabDriver.create_snap(self, grab)
+	else:
+		# CRITICAL: Changed to always use 'precise' pickup mode
+		# Leaves the grab handle in it's global_transform and moves from there
+		# instead of applying weird transforms to a grab handle
+		var grab := Grab.new(grabber, self, by_grab_point, true)
+		_grab_driver = XRToolsGrabDriver.create_snap(self, grab)
+
+	# Report picked up and grabbed
+	picked_up.emit(self)
+	grabbed.emit(self, by)
 
 	# Enable the process function while held
 	set_process(true)

@@ -2,7 +2,6 @@
 class_name XRToolsInteractableHandleDriven
 extends Node3D
 
-
 ## XR Tools Interactable Handle Driven script
 ##
 ## This is the base class for interactables driven by handles. It subscribes
@@ -12,25 +11,27 @@ extends Node3D
 ## When one or more handles are grabbed, the _process function is enabled
 ## to process the handle-driven movement.
 
-
 ## Signal called when this interactable is grabbed
 signal grabbed(interactable)
 
 ## Signal called when this interactable is released
 signal released(interactable)
 
-
 # Array of handles currently grabbed
-var grabbed_handles := Array()
+var grabbed_handles := {}
+
+## Transform3D that ignores driven behavior
+var _private_transform: Transform3D
+var _is_driven_change := false
 
 
-# Add support for is_xr_class on XRTools classes
-func is_xr_class(name : String) -> bool:
-	return name == "XRToolsInteractableHandleDriven"
+func _enter_tree() -> void:
+	set_notify_local_transform(true)
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	_private_transform = transform
+
 	# Hook picked_up and dropped signals from all child handles
 	_hook_child_handles(self)
 
@@ -38,10 +39,23 @@ func _ready():
 	set_process(false)
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_LOCAL_TRANSFORM_CHANGED:
+		# If change NOT from driven behavior
+		if !_is_driven_change:
+			_private_transform = transform
+		_is_driven_change = false
+
+
+# Add support for is_xr_class on XRTools classes
+func is_xr_class(name: String) -> bool:
+	return name == "XRToolsInteractableHandleDriven"
+
+
 # Called when a handle is picked up
 func _on_handle_picked_up(handle: XRToolsInteractableHandle) -> void:
 	# Append to the list of grabbed handles
-	grabbed_handles.append(handle)
+	grabbed_handles[handle] = 1
 
 	# Enable processing
 	if grabbed_handles.size() == 1:
@@ -71,10 +85,12 @@ func _hook_child_handles(node: Node) -> void:
 	# If this node is a handle then hook its handle signals
 	var handle := node as XRToolsInteractableHandle
 	if handle:
-		if handle.picked_up.connect(_on_handle_picked_up):
-			push_error("Unable to connect handle signal")
-		if handle.dropped.connect(_on_handle_dropped):
-			push_error("Unable to connect handle signal")
+		if !handle.picked_up.is_connected(_on_handle_picked_up):
+			if handle.picked_up.connect(_on_handle_picked_up):
+				push_error("Unable to connect handle signal")
+		if !handle.dropped.is_connected(_on_handle_dropped):
+			if handle.dropped.connect(_on_handle_dropped):
+				push_error("Unable to connect handle signal")
 
 	# Recurse into all children
 	for child in node.get_children():
