@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://cu423duoycq5o"]
+
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="1_lowyb"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="2_hclnh"]
+[ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="2_rclot"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="3_ndfpv"]
+[ext_resource type="PackedScene" uid="uid://bkse5rxsx5tb3" path="res://addons/godot-xr-tools/desktop-support/mouse_capture.tscn" id="4_dxtnc"]
+[ext_resource type="PackedScene" uid="uid://raeeicvvindd" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_hand.tscn" id="7_hclnh"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="9_nc72e"]
+[ext_resource type="PackedScene" uid="uid://clt88d5d1dje4" path="res://addons/godot-xr-tools/functions/movement_crouch.tscn" id="10_qntp5"]
+
+[node name="XROrigin3D" type="XROrigin3D"]
+
+[node name="PlayerBody" parent="." instance=ExtResource("1_lowyb")]
+
+[node name="Headset" type="XRNode3D" parent="."]
+tracker = &"head"
+
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+current = true
+
+[node name="LeftHand" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, -0.1)
+tracker = &"left_hand"
+
+[node name="LeftHand" parent="LeftHand" instance=ExtResource("2_rclot")]
+
+[node name="FunctionPickup" parent="LeftHand" instance=ExtResource("2_hclnh")]
+
+[node name="MovementDirect" parent="LeftHand" instance=ExtResource("9_nc72e")]
+strafe = true
+
+[node name="MovementCrouch" parent="LeftHand" instance=ExtResource("10_qntp5")]
+
+[node name="RightHand" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, -0.1)
+tracker = &"right_hand"
+
+[node name="RightHand" parent="RightHand" instance=ExtResource("7_hclnh")]
+
+[node name="FunctionPickup" parent="RightHand" instance=ExtResource("2_hclnh")]
+
+[node name="MovementTurn" parent="RightHand" instance=ExtResource("3_ndfpv")]
+turn_mode = 2
+
+[node name="MouseCapture" parent="RightHand" instance=ExtResource("4_dxtnc")]

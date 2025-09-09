@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://brlcc3rqcy2tp"
+path="res://.godot/imported/trench.map-f278a12a4e226bb6712dcaea2d56b045.tres"
+
+[deps]
+
+source_file="res://src/stages/game_scene/map data/trench.map"
+dest_files=["res://.godot/imported/trench.map-f278a12a4e226bb6712dcaea2d56b045.tres"]
+
+[params]
+
