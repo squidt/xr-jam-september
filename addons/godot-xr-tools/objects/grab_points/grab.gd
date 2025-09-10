@@ -111,6 +111,7 @@ func set_grab_point(p_point : XRToolsGrabPoint) -> void:
 	_clear_hand_pose()
 
 	# Update the grab point
+	var old_point = point
 	point = p_point
 	hand_point = point as XRToolsGrabPointHand
 
@@ -131,7 +132,9 @@ func set_grab_point(p_point : XRToolsGrabPoint) -> void:
 	# Report switch
 	print_verbose("%s> switched grab point to %s", [what.name, point.name])
 	what.released.emit(what, by)
+	what.released_point.emit(what, by, old_point)
 	what.grabbed.emit(what, by)
+	what.grabbed_point.emit(what, by, point)
 
 
 ## Release the grip

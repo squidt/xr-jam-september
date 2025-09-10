@@ -1,0 +1,89 @@
+[gd_scene load_steps=11 format=3 uid="uid://crj658urku6dq"]
+
+[sub_resource type="GDScript" id="GDScript_8lmsv"]
+script/source = "extends Node3D
+
+func _ready() -> void:
+	for c in get_children():
+		if \"emitting\" in c:
+			c.emitting = true
+	get_tree().create_timer(5.0).timeout.connect(queue_free)
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2jxwb"]
+cull_mode = 2
+albedo_color = Color(1, 1, 0.803922, 1)
+emission_enabled = true
+emission = Color(1, 0.680155, 0.437977, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o7n0x"]
+lifetime_randomness = 0.25
+particle_flag_align_y = true
+inherit_velocity_ratio = 1.0
+direction = Vector3(0, 0, -1)
+spread = 10.0
+flatness = 0.222
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, -2, 0)
+scale_min = 0.5
+collision_mode = 2
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_8lmsv"]
+size = 0.01
+section_segments = 4
+
+[sub_resource type="Curve" id="Curve_8lmsv"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.254252, 10.398), 0.0, 0.0, 0, 0, Vector2(0.290063, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2jxwb"]
+curve = SubResource("Curve_8lmsv")
+
+[sub_resource type="Curve" id="Curve_o7n0x"]
+_data = [Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.976894), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_f3nrb"]
+curve = SubResource("Curve_o7n0x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8lmsv"]
+inherit_velocity_ratio = 1.0
+direction = Vector3(0, 0, -1)
+spread = 10.0
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+damping_max = 8.807
+damping_curve = SubResource("CurveTexture_2jxwb")
+turbulence_enabled = true
+turbulence_noise_scale = 3.812
+turbulence_influence_over_life = SubResource("CurveTexture_f3nrb")
+collision_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_2jxwb"]
+size = Vector2(0.1, 0.1)
+
+[node name="Muzzleflash" type="Node3D"]
+script = SubResource("GDScript_8lmsv")
+
+[node name="Spark" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_2jxwb")
+emitting = false
+amount = 5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_o7n0x")
+draw_pass_1 = SubResource("RibbonTrailMesh_8lmsv")
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 4
+one_shot = true
+explosiveness = 0.98
+fixed_fps = 60
+visibility_aabb = AABB(-2.15114, -5.40444, -9.75955, 3.45141, 5.85462, 9.6471)
+process_material = SubResource("ParticleProcessMaterial_8lmsv")
+draw_pass_1 = SubResource("QuadMesh_2jxwb")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://cvdkot2uim7wf"]
+[gd_scene load_steps=36 format=4 uid="uid://cvdkot2uim7wf"]
 
 [ext_resource type="Script" uid="uid://cobn3jwshpl4v" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_unj3i"]
 [ext_resource type="PackedScene" uid="uid://cu423duoycq5o" path="res://src/player.tscn" id="2_mlbvp"]
@@ -7,7 +7,9 @@
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="4_10lxr"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="5_m6v42"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="6_2tl68"]
-[ext_resource type="PackedScene" uid="uid://xmkjqkphkpgh" path="res://src/weapon.tscn" id="9_2tl68"]
+[ext_resource type="Material" uid="uid://cvjcwsfole3ps" path="res://src/stages/game_scene/materials/rocks_with_dirt.tres" id="6_hn0qj"]
+[ext_resource type="PackedScene" uid="uid://xmkjqkphkpgh" path="res://src/firearm/1919A4.tscn" id="9_2tl68"]
+[ext_resource type="Script" uid="uid://bbvbiwsxxoxe5" path="res://src/stages/game_scene/enemy_manager.gd" id="10_hn0qj"]
 
 [sub_resource type="Sky" id="Sky_fpn64"]
 sky_material = ExtResource("3_7puy4")
@@ -96,6 +98,17 @@ points = PackedVector3Array(-3, 1.3125, 1.4375, -3, 0.375, 1.4375, -3.1875, 1.31
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0uegh"]
 points = PackedVector3Array(3.1875, 1.3125, 1.4375, 3.1875, 0.375, 1.4375, 3, 1.3125, 1.4375, 3, 0.375, 1.4375, 3.1875, 1.3125, -36.4375, 3.1875, 0.375, -36.4375, 3, 1.3125, -36.4375, 3, 0.375, -36.4375)
 
+[sub_resource type="Curve" id="Curve_hn0qj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.536468, 0.707317), 0.0, 0.0, 0, 0, Vector2(0.90595, 0.245186), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve3D" id="Curve3D_hssh6"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, -30, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
 [node name="GameStage" type="Node3D"]
 script = ExtResource("1_unj3i")
 metadata/_custom_type_script = "uid://cobn3jwshpl4v"
@@ -116,6 +129,7 @@ metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
 collision_mask = 0
 
 [node name="entity_0_mesh_instance" type="MeshInstance3D" parent="World/FuncGodotMap/entity_0_worldspawn"]
+material_override = ExtResource("6_hn0qj")
 mesh = SubResource("ArrayMesh_2tl68")
 
 [node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="World/FuncGodotMap/entity_0_worldspawn"]
@@ -179,3 +193,24 @@ shape = SubResource("ConvexPolygonShape3D_0uegh")
 
 [node name="Weapon" parent="." instance=ExtResource("9_2tl68")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225111, -1.24724)
+
+[node name="EnemyManager" type="Node3D" parent="."]
+script = ExtResource("10_hn0qj")
+difficulty_curve = SubResource("Curve_hn0qj")
+
+[node name="Center" type="Path3D" parent="EnemyManager"]
+curve = SubResource("Curve3D_hssh6")
+
+[node name="Left" type="Path3D" parent="EnemyManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+curve = SubResource("Curve3D_hssh6")
+
+[node name="Right" type="Path3D" parent="EnemyManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+curve = SubResource("Curve3D_hssh6")
+
+[node name="Rounds" type="Timer" parent="EnemyManager"]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="EnemyManager/Rounds" to="EnemyManager" method="increment_round"]

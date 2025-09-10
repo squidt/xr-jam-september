@@ -88,6 +88,10 @@ func pick_up(by) -> void:
 
 			# Report the secondary grab
 			grabbed.emit(self, by)
+			
+			# Grab Point Valid
+			if is_instance_valid(by_grab_point):
+				grabbed_point.emit(self, by, by_grab_point)
 			return
 
 		# Swapping hands, let go with the primary grab
@@ -131,6 +135,9 @@ func pick_up(by) -> void:
 	# Report picked up and grabbed
 	picked_up.emit(self)
 	grabbed.emit(self, by)
+
+	if is_instance_valid(by_grab_point):
+		grabbed_point.emit(self, by, by_grab_point)
 
 	# Enable the process function while held
 	set_process(true)

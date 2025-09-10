@@ -17,6 +17,9 @@ signal grabbed(interactable)
 ## Signal called when this interactable is released
 signal released(interactable)
 
+signal grabbed_point(interactable, point)
+signal released_point(interactable, point)
+
 # Array of handles currently grabbed
 var grabbed_handles := {}
 
@@ -61,6 +64,7 @@ func _on_handle_picked_up(handle: XRToolsInteractableHandle) -> void:
 	if grabbed_handles.size() == 1:
 		# Report grabbed
 		emit_signal("grabbed", self)
+		
 
 		# Enable physics processing
 		set_process(true)

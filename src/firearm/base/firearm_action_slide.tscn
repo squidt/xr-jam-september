@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0p50wkyawsgq"]
+
+[ext_resource type="Script" uid="uid://7jieuixjnirg" path="res://src/firearm/base/firearm_action_slide.gd" id="1_p2aqk"]
+
+[node name="ActionSlider" type="Node3D"]
+script = ExtResource("1_p2aqk")

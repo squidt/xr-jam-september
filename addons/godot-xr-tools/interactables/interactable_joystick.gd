@@ -111,7 +111,7 @@ func _process(_delta: float) -> void:
 	var handle_origin_local = to_local(handle.handle_origin.global_position)
 	var result = angle_between(global_position, handle_origin_local, handle_local)
 
-	var shpeed = 23.0
+	var shpeed = 15.0
 	result.axis = (result.axis * Vector3(1.0, 1.0, 0.0)).normalized()
 
 	# Move the joystick by the requested offset

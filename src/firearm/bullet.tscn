@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0wq6vy45jc45"]
+
+[ext_resource type="Script" uid="uid://dr3r2q7tblm46" path="res://src/firearm/bullet.gd" id="1_jxryy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8g0rf"]
+cull_mode = 2
+diffuse_mode = 3
+albedo_color = Color(1, 0.631758, 0.57663, 1)
+emission_enabled = true
+emission = Color(0.792032, 0.35979, 0.325329, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_wfi7u"]
+radius = 0.02
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_jxryy")
+collision_mask = 71
+metadata/_custom_type_script = "uid://dr3r2q7tblm46"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 0, 0, 0.00399688)
+material_override = SubResource("StandardMaterial3D_8g0rf")
+mesh = SubResource("SphereMesh_wfi7u")

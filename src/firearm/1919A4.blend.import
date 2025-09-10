@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://d33dh1xqyewg6"
-path="res://.godot/imported/1919A4.blend-a269ab0151ddc4ebe3047b903d99e131.scn"
+path="res://.godot/imported/1919A4.blend-069dbfc4a1aeeb8da77708f3b76feaa2.scn"
 
 [deps]
 
-source_file="res://src/gun/1919A4.blend"
-dest_files=["res://.godot/imported/1919A4.blend-a269ab0151ddc4ebe3047b903d99e131.scn"]
+source_file="res://src/firearm/1919A4.blend"
+dest_files=["res://.godot/imported/1919A4.blend-069dbfc4a1aeeb8da77708f3b76feaa2.scn"]
 
 [params]
 

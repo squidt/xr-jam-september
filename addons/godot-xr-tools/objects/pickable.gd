@@ -27,6 +27,9 @@ signal grabbed(pickable, by)
 # Signal emitted when this object is released (primary or secondary)
 signal released(pickable, by)
 
+signal grabbed_point(pickable, by, point)
+signal released_point(pickable, by, point)
+
 # Signal emitted when the user presses the action button while holding this object
 signal action_pressed(pickable)
 
@@ -284,6 +287,8 @@ func pick_up(by: Node3D) -> void:
 
 			# Report the secondary grab
 			grabbed.emit(self, by)
+			if is_instance_valid(by_grab_point):
+				grabbed_point.emit(self, by, by_grab_point)
 			return
 
 		# Swapping hands, let go with the primary grab
@@ -324,6 +329,8 @@ func pick_up(by: Node3D) -> void:
 	# Report picked up and grabbed
 	picked_up.emit(self)
 	grabbed.emit(self, by)
+	if is_instance_valid(by_grab_point):
+		grabbed_point.emit(self, by, by_grab_point)
 
 
 # Called when this object is dropped

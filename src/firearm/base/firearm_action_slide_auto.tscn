@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dp1p55yv8sc4t"]
+
+[ext_resource type="PackedScene" uid="uid://c0p50wkyawsgq" path="res://src/firearm/base/firearm_action_slide.tscn" id="1_w7gbb"]
+[ext_resource type="Script" path="res://src/firearm/base/firearm_action_slide_auto.gd" id="2_5x3i8"]
+
+[sub_resource type="Curve" id="Curve_lb37n"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.498688, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="ActionSliderAuto" instance=ExtResource("1_w7gbb")]
+script = ExtResource("2_5x3i8")
+call_cycle = false
+rpm = 500
+cycle_curve = SubResource("Curve_lb37n")
