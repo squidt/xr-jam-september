@@ -105,7 +105,7 @@ func is_xr_class(name : String) -> bool:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Skip creating grab-helpers if in the editor
-	if Engine.is_editor_hint():
+	if Engine.is_editor_hint() or !is_multiplayer_authority():
 		return
 
 	# Create the grab collision shape
@@ -155,7 +155,7 @@ func _ready():
 # Called on each frame to update the pickup
 func _process(delta):
 	# Do not process if in the editor
-	if Engine.is_editor_hint():
+	if Engine.is_editor_hint() or !is_multiplayer_authority():
 		return
 
 	# Skip if disabled, or the controller isn't active

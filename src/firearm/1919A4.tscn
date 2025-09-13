@@ -1,27 +1,60 @@
-[gd_scene load_steps=24 format=3 uid="uid://xmkjqkphkpgh"]
+[gd_scene load_steps=40 format=3 uid="uid://xmkjqkphkpgh"]
 
 [ext_resource type="PackedScene" uid="uid://d33dh1xqyewg6" path="res://src/firearm/1919A4.blend" id="1_quwjw"]
 [ext_resource type="PackedScene" uid="uid://du32t1mb2kd7x" path="res://addons/godot-xr-tools/interactables/interactable_joystick.tscn" id="2_71yhy"]
 [ext_resource type="PackedScene" uid="uid://bddj5m7ull6g0" path="res://addons/godot-xr-tools/interactables/interactable_handle.tscn" id="3_71yhy"]
 [ext_resource type="Script" uid="uid://cfi3y8s6syw7o" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_redirect.gd" id="4_7vvfr"]
+[ext_resource type="PackedScene" uid="uid://bnvxqb33lltmj" path="res://addons/godot-xr-tools/interactables/interactable_hinge.tscn" id="4_ffhk0"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_pu56s"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="6_f03vt"]
 [ext_resource type="Animation" uid="uid://ccds2u22gbxn7" path="res://addons/godot-xr-tools/hands/animations/right/Grip.res" id="6_pu56s"]
+[ext_resource type="Animation" uid="uid://wcwa3p1qrhwr" path="res://addons/godot-xr-tools/hands/animations/right/Rounded.res" id="6_un1nb"]
 [ext_resource type="Script" uid="uid://krob44m8t54b" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="7_f03vt"]
+[ext_resource type="Animation" uid="uid://bv5tuc1kjv0k5" path="res://addons/godot-xr-tools/hands/animations/right/Hold.res" id="7_go4du"]
 [ext_resource type="Script" uid="uid://ex8evc6wlcxk" path="res://src/common/grab_point_input.gd" id="8_gyh0s"]
 [ext_resource type="Script" uid="uid://ce8xyfvdpo86e" path="res://src/common/grab_point_input_condition.gd" id="9_vn7i2"]
 [ext_resource type="Animation" uid="uid://plad1r85f7ws" path="res://addons/godot-xr-tools/hands/animations/left/Grip.res" id="9_xhiev"]
+[ext_resource type="Animation" uid="uid://cnng6xumhw7cx" path="res://addons/godot-xr-tools/hands/animations/left/Rounded.res" id="10_tjfkl"]
 [ext_resource type="PackedScene" uid="uid://b0r6edl74ddo7" path="res://addons/godot-xr-tools/interactables/interactable_slider.tscn" id="11_t8cha"]
 [ext_resource type="Script" uid="uid://drgnfvqkhv78j" path="res://src/firearm/base/firearm.gd" id="13_svv0k"]
 [ext_resource type="Script" uid="uid://c7djv4mfwkutl" path="res://src/firearm/base/firearm_sear.gd" id="14_4wrow"]
 [ext_resource type="PackedScene" uid="uid://dp1p55yv8sc4t" path="res://src/firearm/base/firearm_action_slide_auto.tscn" id="14_6pebi"]
 [ext_resource type="Script" uid="uid://dyewkmieaxvc4" path="res://src/firearm/bullet_emitter.gd" id="15_6pebi"]
+[ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="18_go4du"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_t8cha"]
-radius = 0.0589165
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4wrow"]
+properties/0/path = NodePath("Interactions/WeaponControl:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Interactions/WeaponControl/ChargingHandle:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Interactions/WeaponControl/ChargingHandle:slider_position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_7vvfr"]
-radius = 0.0638978
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wrow"]
+albedo_color = Color(0.0895907, 0.0895907, 0.0895907, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ffhk0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4koj"]
+albedo_color = Color(0.00188723, 0.141003, 0.0361646, 1)
+
+[sub_resource type="Resource" id="Resource_crn2u"]
+script = ExtResource("7_f03vt")
+open_pose = ExtResource("7_go4du")
+closed_pose = ExtResource("6_un1nb")
+metadata/_custom_type_script = "uid://krob44m8t54b"
+
+[sub_resource type="Resource" id="Resource_h7tgr"]
+script = ExtResource("7_f03vt")
+open_pose = ExtResource("10_tjfkl")
+closed_pose = ExtResource("10_tjfkl")
+metadata/_custom_type_script = "uid://krob44m8t54b"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c4koj"]
+radius = 0.0584322
 
 [sub_resource type="Resource" id="Resource_wy2q5"]
 script = ExtResource("7_f03vt")
@@ -29,7 +62,7 @@ open_pose = ExtResource("6_pu56s")
 closed_pose = ExtResource("6_pu56s")
 metadata/_custom_type_script = "uid://krob44m8t54b"
 
-[sub_resource type="Resource" id="Resource_4wrow"]
+[sub_resource type="Resource" id="Resource_go4du"]
 resource_local_to_scene = true
 script = ExtResource("9_vn7i2")
 type = "BUTTON"
@@ -42,12 +75,44 @@ open_pose = ExtResource("9_xhiev")
 closed_pose = ExtResource("9_xhiev")
 metadata/_custom_type_script = "uid://krob44m8t54b"
 
-[sub_resource type="Resource" id="Resource_e4fit"]
+[sub_resource type="Resource" id="Resource_tjfkl"]
 resource_local_to_scene = true
 script = ExtResource("9_vn7i2")
 type = "BUTTON"
 action = "trigger_click"
 metadata/_custom_type_script = "uid://ce8xyfvdpo86e"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7vvfr"]
+radius = 0.0638978
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t8cha"]
+radius = 0.0338677
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_go4du"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(1, 1, 1, 0.00871572)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="GDScript" id="GDScript_tjfkl"]
+resource_name = "GloSpot"
+script/source = "@tool 
+extends CSGBox3D
+
+@export var freq: float = 1.0
+@export var amp: float = 1.0
+var _time: float = 0.0
+
+func _process(delta: float) -> void:
+	if visible:
+		_time += delta
+		material = material as StandardMaterial3D
+		var sine = sin(_time * TAU / freq) * amp
+		var v = remap(sine, -1.0, 1.0, 0.0, .01)
+		material.albedo_color.a = v
+"
 
 [sub_resource type="Resource" id="Resource_ffhk0"]
 script = ExtResource("14_4wrow")
@@ -55,26 +120,208 @@ firemode = 8
 firemodes = 8
 metadata/_custom_type_script = "uid://c7djv4mfwkutl"
 
+[sub_resource type="GDScript" id="GDScript_crn2u"]
+resource_name = "BeltLoader"
+script/source = "extends FirearmComponent
+
+
+var belt : AmmoBeltPart = null
+
+func _ready() -> void:
+	firearm.bolt_loaded.connect(_on_bolt_loaded)
+
+
+func _on_bolt_loaded():
+	if belt and belt.has_ammo() and belt.is_gun_connected:
+		belt.take_bullet()
+		firearm.is_bolt_loaded = true
+		firearm.is_bolt_fired = false
+
+
+func _on_ammo_can_placed(what: Variant) -> void:
+	if is_multiplayer_authority():
+		if what.has_node(\"Belt\"):
+			belt = what.get_node(\"Belt\") as AmmoBeltPart
+			belt.try_attach.connect(_on_belt_try_attach)
+
+
+func _on_ammo_can_removed() -> void:
+	if is_multiplayer_authority():
+		belt.try_attach.disconnect(_on_belt_try_attach)
+		belt = null
+
+
+# BELT not bolt
+func _on_belt_try_attach() -> void:
+	# Allow
+	if belt and firearm.is_belt_loadable:
+		belt.belt_attach()
+	else:
+		belt.belt_detach()
+"
+
+[sub_resource type="GDScript" id="GDScript_go4du"]
+resource_name = "LoadingCoverBlocker"
+script/source = "extends FirearmComponent
+
+const CLOSED = -20
+
+var _angle := 0.0
+
+func _on_loading_cover_hinge_moved(angle: Variant) -> void:
+	_angle = angle
+	# Open (despite negative values)
+	if _angle < CLOSED:
+		firearm.is_belt_loadable = true
+	# Closed
+	else:
+		firearm.is_belt_loadable = false
+
+
+func _on_loading_cover_released(interactable: Variant) -> void:
+	if _angle >= CLOSED:
+		interactable = interactable as XRToolsInteractableHinge
+		interactable.hinge_position = interactable.default_position
+		firearm.is_belt_loadable = false
+"
+
 [node name="1919A4" type="Node3D"]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_4wrow")
 
 [node name="1919A4" parent="." instance=ExtResource("1_quwjw")]
 
-[node name="BulletEmitter" type="Node3D" parent="1919A4/Receiver/Barrel" index="0"]
+[node name="Receiver" parent="1919A4" index="0"]
+material_override = SubResource("StandardMaterial3D_4wrow")
+
+[node name="Barrel" parent="1919A4/Receiver" index="0"]
+material_override = SubResource("StandardMaterial3D_4wrow")
+
+[node name="BulletEmitter" type="Node3D" parent="1919A4/Receiver/Barrel" index="0" node_paths=PackedStringArray("firearm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.207986, -0.787457)
 script = ExtResource("15_6pebi")
+firearm = NodePath("../../../../Firearm")
 metadata/_custom_type_script = "uid://dyewkmieaxvc4"
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="1919A4/Receiver/Barrel/BulletEmitter"]
+_spawnable_scenes = PackedStringArray("uid://d0wq6vy45jc45", "uid://crj658urku6dq")
+spawn_path = NodePath("..")
+
 [node name="ChargingHandle" parent="1919A4/Receiver" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0424862, 0.0747841, 0.13257)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0424862, 0.0747841, 0.132569)
+material_override = SubResource("StandardMaterial3D_ffhk0")
+
+[node name="Cover" parent="1919A4/Receiver" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0962342, 0.075076)
+material_override = SubResource("StandardMaterial3D_4wrow")
+
+[node name="TripodPivot" parent="1919A4" index="1"]
+material_override = SubResource("StandardMaterial3D_c4koj")
+
+[node name="Cylinder_002" parent="1919A4/TripodPivot" index="0"]
+material_override = SubResource("StandardMaterial3D_c4koj")
+
+[node name="Cylinder_003" parent="1919A4/TripodPivot" index="1"]
+material_override = SubResource("StandardMaterial3D_c4koj")
+
+[node name="Cylinder_004" parent="1919A4/TripodPivot" index="2"]
+material_override = SubResource("StandardMaterial3D_c4koj")
 
 [node name="Interactions" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.132748, -0.170135)
+
+[node name="LoadingCoverOrigin" type="Node3D" parent="Interactions"]
+
+[node name="LoadingCover" parent="Interactions/LoadingCoverOrigin" instance=ExtResource("4_ffhk0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0873505, 0.0737715)
+hinge_limit_min = -105.0
+hinge_limit_max = 0.0
+
+[node name="ToLoadingCover" type="RemoteTransform3D" parent="Interactions/LoadingCoverOrigin/LoadingCover"]
+remote_path = NodePath("../../../../1919A4/Receiver/Cover")
+
+[node name="GrabPointHandRight" parent="Interactions/LoadingCoverOrigin/LoadingCover" instance=ExtResource("5_pu56s")]
+transform = Transform3D(0.417122, -1.8233e-08, 0.908851, 0.908851, -3.97271e-08, -0.417122, 4.37114e-08, 1, 1.91069e-15, -0.0450277, 0.023623, 0.181225)
+hand_pose = SubResource("Resource_crn2u")
+
+[node name="GrabPointHandLeft" parent="Interactions/LoadingCoverOrigin/LoadingCover" instance=ExtResource("6_f03vt")]
+transform = Transform3D(0.464904, 2.03216e-08, -0.885361, -0.885361, -3.87004e-08, -0.464904, -4.37114e-08, 1, 1.30721e-15, 0.0507981, 0.0261818, 0.182048)
+hand_pose = SubResource("Resource_h7tgr")
+
+[node name="HandleOrigin" type="Node3D" parent="Interactions/LoadingCoverOrigin/LoadingCover"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0176959, 0.157751)
+
+[node name="InteractableHandle" parent="Interactions/LoadingCoverOrigin/LoadingCover/HandleOrigin" instance=ExtResource("3_71yhy")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/LoadingCoverOrigin/LoadingCover/HandleOrigin/InteractableHandle"]
+shape = SubResource("SphereShape3D_c4koj")
+
+[node name="GPRRight" type="Marker3D" parent="Interactions/LoadingCoverOrigin/LoadingCover/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
+script = ExtResource("4_7vvfr")
+target = NodePath("../../../GrabPointHandRight")
+metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
+
+[node name="GPRLeft" type="Marker3D" parent="Interactions/LoadingCoverOrigin/LoadingCover/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
+script = ExtResource("4_7vvfr")
+target = NodePath("../../../GrabPointHandLeft")
+metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
 
 [node name="WeaponControl" parent="Interactions" instance=ExtResource("2_71yhy")]
 joystick_x_limit_min = -5.0
 joystick_x_limit_max = 10.0
 joystick_y_limit_min = -30.0
 joystick_y_limit_max = 30.0
+
+[node name="GrabPointHandRight" parent="Interactions/WeaponControl" instance=ExtResource("5_pu56s")]
+transform = Transform3D(1, 0, 0, 0, 0.977717, -0.209926, 0, 0.209926, 0.977717, 0.0312987, 0.112875, 0.418398)
+hand_pose = SubResource("Resource_wy2q5")
+
+[node name="GrabPointInput" type="Node" parent="Interactions/WeaponControl/GrabPointHandRight" node_paths=PackedStringArray("pickable")]
+script = ExtResource("8_gyh0s")
+pickable = NodePath("../../GunHandleOrigin/InteractableHandle")
+conditions = Array[ExtResource("9_vn7i2")]([SubResource("Resource_go4du")])
+metadata/_custom_type_script = "uid://ex8evc6wlcxk"
+
+[node name="GrabPointHandLeft" parent="Interactions/WeaponControl" instance=ExtResource("6_f03vt")]
+transform = Transform3D(1, 0, 0, 0, 0.977717, -0.209926, 0, 0.209926, 0.977717, -0.0337276, 0.112875, 0.418398)
+hand_pose = SubResource("Resource_0r86o")
+
+[node name="GrabPointInput" type="Node" parent="Interactions/WeaponControl/GrabPointHandLeft" node_paths=PackedStringArray("pickable")]
+script = ExtResource("8_gyh0s")
+pickable = NodePath("../../GunHandleOrigin/InteractableHandle")
+conditions = Array[ExtResource("9_vn7i2")]([SubResource("Resource_tjfkl")])
+metadata/_custom_type_script = "uid://ex8evc6wlcxk"
+
+[node name="ToMesh" type="RemoteTransform3D" parent="Interactions/WeaponControl"]
+remote_path = NodePath("../../../1919A4/Receiver")
+update_position = false
+update_scale = false
+
+[node name="ToLoadingCover" type="RemoteTransform3D" parent="Interactions/WeaponControl"]
+remote_path = NodePath("../../LoadingCoverOrigin")
+
+[node name="GunHandleOrigin" type="Node3D" parent="Interactions/WeaponControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0744184, 0.478404)
+
+[node name="InteractableHandle" parent="Interactions/WeaponControl/GunHandleOrigin" instance=ExtResource("3_71yhy")]
+press_to_hold = false
+second_hand_grab = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/WeaponControl/GunHandleOrigin/InteractableHandle"]
+shape = SubResource("SphereShape3D_7vvfr")
+
+[node name="GPRRight" type="Marker3D" parent="Interactions/WeaponControl/GunHandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0136792, 0.00749958)
+script = ExtResource("4_7vvfr")
+target = NodePath("../../../GrabPointHandRight")
+metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
+
+[node name="GPRLeft" type="Marker3D" parent="Interactions/WeaponControl/GunHandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0136792, 0.00749958)
+script = ExtResource("4_7vvfr")
+target = NodePath("../../../GrabPointHandLeft")
+metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
 
 [node name="ChargingHandle" parent="Interactions/WeaponControl" instance=ExtResource("11_t8cha")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0424862, 0.0659004, 0.131265)
@@ -88,6 +335,7 @@ remote_path = NodePath("../../../../1919A4/Receiver/ChargingHandle")
 transform = Transform3D(0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0, 0, 1, 0.0775954, 0.0389012, -0.0882376)
 
 [node name="HandleOrigin" type="Node3D" parent="Interactions/WeaponControl/ChargingHandle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.031699, 0, 0)
 
 [node name="InteractableHandle" parent="Interactions/WeaponControl/ChargingHandle/HandleOrigin" instance=ExtResource("3_71yhy")]
 
@@ -99,52 +347,23 @@ script = ExtResource("4_7vvfr")
 target = NodePath("../../../GrabPointHandRight")
 metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
 
-[node name="HandleOrigin" type="Node3D" parent="Interactions/WeaponControl"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0744184, 0.478404)
+[node name="AmmoCanZone" parent="Interactions" instance=ExtResource("18_go4du")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.321791, -0.100422, 0.156153)
+grab_distance = 0.1
+snap_require = "AmmoCan30Cal"
 
-[node name="InteractableHandle" parent="Interactions/WeaponControl/HandleOrigin" instance=ExtResource("3_71yhy")]
-press_to_hold = false
-second_hand_grab = 2
+[node name="CSGBox3D" type="CSGBox3D" parent="Interactions/AmmoCanZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0631527, 0)
+size = Vector3(0.237305, 0.0295715, 0.0974121)
+material = SubResource("StandardMaterial3D_go4du")
+script = SubResource("GDScript_tjfkl")
+freq = 2.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/WeaponControl/HandleOrigin/InteractableHandle"]
-shape = SubResource("SphereShape3D_7vvfr")
-
-[node name="GPRRight" type="Marker3D" parent="Interactions/WeaponControl/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0136792, 0.00749958)
-script = ExtResource("4_7vvfr")
-target = NodePath("../../../GrabPointHandRight")
-metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
-
-[node name="GPRLeft" type="Marker3D" parent="Interactions/WeaponControl/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0136792, 0.00749958)
-script = ExtResource("4_7vvfr")
-target = NodePath("../../../GrabPointHandLeft")
-metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
-
-[node name="GrabPointHandRight" parent="Interactions/WeaponControl" instance=ExtResource("5_pu56s")]
-transform = Transform3D(1, 0, 0, 0, 0.977717, -0.209926, 0, 0.209926, 0.977717, 0.0312987, 0.112875, 0.418398)
-hand_pose = SubResource("Resource_wy2q5")
-
-[node name="GrabPointInput" type="Node" parent="Interactions/WeaponControl/GrabPointHandRight" node_paths=PackedStringArray("pickable")]
-script = ExtResource("8_gyh0s")
-pickable = NodePath("../../HandleOrigin/InteractableHandle")
-conditions = Array[ExtResource("9_vn7i2")]([SubResource("Resource_4wrow")])
-metadata/_custom_type_script = "uid://ex8evc6wlcxk"
-
-[node name="GrabPointHandLeft" parent="Interactions/WeaponControl" instance=ExtResource("6_f03vt")]
-transform = Transform3D(1, 0, 0, 0, 0.977717, -0.209926, 0, 0.209926, 0.977717, -0.0337276, 0.112875, 0.418398)
-hand_pose = SubResource("Resource_0r86o")
-
-[node name="GrabPointInput" type="Node" parent="Interactions/WeaponControl/GrabPointHandLeft" node_paths=PackedStringArray("pickable")]
-script = ExtResource("8_gyh0s")
-pickable = NodePath("../../HandleOrigin/InteractableHandle")
-conditions = Array[ExtResource("9_vn7i2")]([SubResource("Resource_e4fit")])
-metadata/_custom_type_script = "uid://ex8evc6wlcxk"
-
-[node name="ToMesh" type="RemoteTransform3D" parent="Interactions/WeaponControl"]
-remote_path = NodePath("../../../1919A4/Receiver")
-update_position = false
-update_scale = false
+[node name="CSGBox3D2" type="CSGBox3D" parent="Interactions/AmmoCanZone/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.003479, 0)
+operation = 2
+size = Vector3(0.228516, 0.0255127, 0.0947266)
+material = SubResource("StandardMaterial3D_go4du")
 
 [node name="Firearm" type="Node3D" parent="."]
 script = ExtResource("13_svv0k")
@@ -158,11 +377,23 @@ rpm = 800
 slider = NodePath("../../Interactions/WeaponControl/ChargingHandle")
 firearm = NodePath("..")
 
+[node name="BeltLoader" type="Node3D" parent="Firearm" node_paths=PackedStringArray("firearm")]
+script = SubResource("GDScript_crn2u")
+firearm = NodePath("..")
+
+[node name="LoadingCoverBlocker" type="Node3D" parent="Firearm"]
+script = SubResource("GDScript_go4du")
+
+[connection signal="hinge_moved" from="Interactions/LoadingCoverOrigin/LoadingCover" to="Firearm/LoadingCoverBlocker" method="_on_loading_cover_hinge_moved"]
+[connection signal="released" from="Interactions/LoadingCoverOrigin/LoadingCover" to="Firearm/LoadingCoverBlocker" method="_on_loading_cover_released"]
 [connection signal="activated" from="Interactions/WeaponControl/GrabPointHandRight/GrabPointInput" to="Firearm" method="trigger_press"]
 [connection signal="deactivated" from="Interactions/WeaponControl/GrabPointHandRight/GrabPointInput" to="Firearm" method="trigger_release"]
 [connection signal="activated" from="Interactions/WeaponControl/GrabPointHandLeft/GrabPointInput" to="Firearm" method="trigger_press"]
 [connection signal="deactivated" from="Interactions/WeaponControl/GrabPointHandLeft/GrabPointInput" to="Firearm" method="trigger_release"]
-[connection signal="fired" from="Firearm" to="1919A4/Receiver/Barrel/BulletEmitter" method="trigger"]
+[connection signal="has_dropped" from="Interactions/AmmoCanZone" to="Interactions/AmmoCanZone/CSGBox3D" method="show"]
+[connection signal="has_dropped" from="Interactions/AmmoCanZone" to="Firearm/BeltLoader" method="_on_ammo_can_removed"]
+[connection signal="has_picked_up" from="Interactions/AmmoCanZone" to="Firearm/BeltLoader" method="_on_ammo_can_placed"]
+[connection signal="has_picked_up" from="Interactions/AmmoCanZone" to="Interactions/AmmoCanZone/CSGBox3D" method="hide" unbinds=1]
 
 [editable path="1919A4"]
 [editable path="Firearm/ActionSliderAuto"]

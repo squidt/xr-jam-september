@@ -1,0 +1,2 @@
+steam template by:
+	Malcolm-Q @ https://github.com/Malcolm-Q/SteamGodotTemplate

@@ -21,14 +21,12 @@ enum ActionState { CLOSE, OPEN, UNLOAD, LOAD }
 
 @export var debug_print := false
 
-
 var _state := ActionState.CLOSE:
 	set = _set_state
 var _bolt_spacing_on_released := 0.0
 var _can_try_load := false
 var _prev_offset := 0.0
 var _prev_tick := 0.0
-
 
 
 func _ready() -> void:
@@ -185,7 +183,7 @@ func _remap_to_spacing(offset: float, speed: float) -> float:
 
 func _on_slider_released(_interactable: Variant) -> void:
 	# Bolt just released
-	if !firearm.is_bolt_loaded and _state == ActionState.UNLOAD:
+	if !firearm.is_bolt_loaded and (_state == ActionState.UNLOAD or _state == ActionState.OPEN):
 		_state = ActionState.LOAD
 		_state = ActionState.CLOSE
 		moved.emit()

@@ -2,19 +2,14 @@ extends Node3D
 
 signal fired
 
-enum ActionState
-{
-	CLOSED,
-	OPENED,
-	UNLOADED,
-	LOADED
-}
+enum ActionState { CLOSED, OPENED, UNLOADED, LOADED }
 
 @export var slider: XRToolsInteractableSlider
 @export var rpm: int = 500
 @export var cycle_curve: Curve  ## Curve of bolt animation
 
-var _state := ActionState.CLOSED: set = _set_action_state
+var _state := ActionState.CLOSED:
+	set = _set_action_state
 var _loaded := true
 var _can_try_loading := false
 var _is_trigger_pressed := false

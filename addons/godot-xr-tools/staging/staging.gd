@@ -135,6 +135,7 @@ func is_xr_class(name : String) -> bool:
 ##
 ## See [method XRToolsSceneBase.scene_loaded] for details on how to implement
 ## advanced scene-switching.
+@rpc("authority","call_local","reliable")
 func load_scene(p_scene_path : String, user_data = null) -> void:
 	# Do not load if in the editor
 	if Engine.is_editor_hint():
@@ -177,8 +178,8 @@ func load_scene(p_scene_path : String, user_data = null) -> void:
 
 		# Make our loading screen visible again and reset some stuff
 		xr_origin.set_process_internal(true)
-		xr_origin.current = true
-		xr_camera.current = true
+		#xr_origin.current = true
+		#xr_camera.current = true
 		$LoadingScreen.progress = 0.0
 		$LoadingScreen.enable_press_to_continue = false
 		$LoadingScreen.follow_camera = true
@@ -241,7 +242,7 @@ func load_scene(p_scene_path : String, user_data = null) -> void:
 	# Setup our new scene
 	current_scene = new_scene.instantiate()
 	current_scene_path = p_scene_path
-	$Scene.add_child(current_scene)
+	$Scene.add_child(current_scene, true)
 	_add_signals(current_scene)
 
 	# We create a small delay here to give tracking some time to update our nodes...

@@ -260,7 +260,7 @@ func set_physics(new_value: XRToolsGroundPhysicsSettings) -> void:
 
 func _physics_process(delta: float):
 	# Do not run physics if in the editor
-	if Engine.is_editor_hint():
+	if Engine.is_editor_hint() or !is_multiplayer_authority():
 		return
 
 	# If disabled then turn of physics processing and bail out
@@ -541,7 +541,7 @@ func _estimate_body_forward_dir() -> Vector3:
 		var dot = forward.dot(hands_forward)
 		var cross = forward.cross(hands_forward).normalized()
 		var angle = clamp(acos(dot) * body_forward_mix, 0.0, 0.33 * PI)
-		forward = forward.rotated(cross, angle)
+		forward = forward.normalized().rotated(cross, angle)
 
 	return forward
 

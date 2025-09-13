@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://ce7vysyvondf8"]
 
-[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/snap_zone.gd" id="1"]
+[ext_resource type="Script" uid="uid://bie184wda4p7r" path="res://addons/godot-xr-tools/objects/snap_zone.gd" id="1"]
 
 [sub_resource type="SphereShape3D" id="1"]
 resource_local_to_scene = true
-radius = 0.1
+radius = 0.3
 
 [node name="SnapZone" type="Area3D"]
 collision_layer = 4

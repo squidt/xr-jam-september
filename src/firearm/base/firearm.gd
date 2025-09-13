@@ -37,6 +37,7 @@ signal attachment_activate
 
 var is_bolt_closed := true
 var is_bolt_fired := false
+var is_belt_loadable := false
 
 
 func _ready() -> void:
@@ -57,7 +58,10 @@ func bolt_try_fire() -> bool:
 	var sear_result = sear.try_fire()
 	if debug_print:
 		print(
-			"Firearm ready (all true): (chambered? %s, !fired? %s, sear? %s)" % [is_chambered(), !is_bolt_fired, sear_result]
+			(
+				"Firearm ready (all true): (chambered? %s, !fired? %s, sear? %s)"
+				% [is_chambered(), !is_bolt_fired, sear_result]
+			)
 		)
 	if is_chambered() and sear_result:
 		if !is_bolt_fired:
@@ -72,8 +76,6 @@ func bolt_try_fire() -> bool:
 func bolt_load() -> void:
 	if debug_print:
 		print("Firearm: bolt load")
-	is_bolt_loaded = true
-	is_bolt_fired = false
 	bolt_loaded.emit()
 
 

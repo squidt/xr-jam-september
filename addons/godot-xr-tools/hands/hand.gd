@@ -113,6 +113,8 @@ func is_xr_class(name : String) -> bool:
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if !is_multiplayer_authority():
+		return
 	# Save the initial hand transform
 	_initial_transform = transform
 	_transform = _initial_transform
@@ -143,6 +145,8 @@ func _ready() -> void:
 ## hand mesh and skeleton to scale appropriately. It then reads the grip and
 ## trigger action values to animate the hand.
 func _physics_process(_delta: float) -> void:
+	if !is_multiplayer_authority():
+		return
 	# Do not run physics if in the editor
 	if Engine.is_editor_hint():
 		return

@@ -1,0 +1,207 @@
+[gd_scene load_steps=5 format=3 uid="uid://beou82jj060oe"]
+
+[ext_resource type="PackedScene" uid="uid://cyn7ibrfqnds4" path="res://src/multiplayer/lobby.tscn" id="1_s1rn4"]
+
+[sub_resource type="GDScript" id="GDScript_j518q"]
+resource_name = "LobbyMenu"
+script/source = "extends Control
+
+
+func _ready() -> void:
+	$TabContainer/Main.show()
+	MainStage.instance.lobby_2d = self
+
+
+func goto_lobby() -> void:
+	$TabContainer/Lobby.connect_lobby()
+	$TabContainer/Lobby.show()
+
+
+func _on_local_pressed() -> void:
+	$TabContainer/ENet.show()
+
+
+func _on_steam_pressed() -> void:
+	$TabContainer/Steam.show()
+
+
+func _on_back_button_pressed() -> void:
+	$TabContainer/Main.show()
+
+
+func _on_steam_host_pressed() -> void:
+	NetworkManager._on_host_steam()
+	$TabContainer/Lobby.show()
+
+
+func _on_steam_join_pressed() -> void:
+	Steam.activateGameOverlay(\"Friends\")
+
+
+func _on_local_host_pressed() -> void:
+	NetworkManager._on_host_lan()
+	$TabContainer/Lobby.show()
+
+
+func _on_local_join_pressed() -> void:
+	NetworkManager._on_join_lan()
+"
+
+[sub_resource type="Gradient" id="Gradient_y60eq"]
+colors = PackedColorArray(0, 0, 0, 1, 0.383245, 0.383245, 0.383245, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5gapq"]
+gradient = SubResource("Gradient_y60eq")
+use_hdr = true
+
+[node name="LobbyMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = SubResource("GDScript_j518q")
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1150.0
+offset_bottom = 644.0
+texture = SubResource("GradientTexture1D_5gapq")
+metadata/_edit_lock_ = true
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 0
+offset_right = 1150.0
+offset_bottom = 644.0
+current_tab = 1
+clip_tabs = false
+tabs_visible = false
+
+[node name="Main" type="Panel" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Main"]
+layout_mode = 0
+offset_right = 1150.0
+offset_bottom = 644.0
+
+[node name="Local" type="Button" parent="TabContainer/Main/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "LOCAL"
+
+[node name="Steam" type="Button" parent="TabContainer/Main/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "STEAM"
+
+[node name="ENet" type="Panel" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="BackButton" type="Button" parent="TabContainer/ENet"]
+layout_mode = 0
+offset_right = 232.0
+offset_bottom = 116.0
+text = "GO BACK"
+
+[node name="Button" type="Button" parent="TabContainer/ENet"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Button2" type="Button" parent="TabContainer/ENet"]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 8.0
+offset_bottom = 7.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/ENet"]
+layout_mode = 0
+offset_left = 415.0
+offset_top = 196.0
+offset_right = 730.0
+offset_bottom = 392.0
+
+[node name="LocalHost" type="Button" parent="TabContainer/ENet/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "HOST"
+
+[node name="LocalJoin" type="Button" parent="TabContainer/ENet/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "JOIN"
+
+[node name="Steam" type="Panel" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="BackButton" type="Button" parent="TabContainer/Steam"]
+layout_mode = 0
+offset_right = 232.0
+offset_bottom = 116.0
+text = "GO BACK"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Steam"]
+layout_mode = 0
+offset_left = 431.0
+offset_top = 199.0
+offset_right = 746.0
+offset_bottom = 395.0
+rotation = 0.14166
+
+[node name="SteamHost" type="Button" parent="TabContainer/Steam/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "HOST"
+
+[node name="SteamJoin" type="Button" parent="TabContainer/Steam/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "JOIN"
+
+[node name="LobbyBrowser" type="Panel" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="BackButton" type="Button" parent="TabContainer/LobbyBrowser"]
+layout_mode = 0
+offset_right = 232.0
+offset_bottom = 116.0
+text = "GO BACK"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/LobbyBrowser"]
+layout_mode = 0
+offset_left = 232.0
+offset_right = 918.0
+offset_bottom = 644.0
+
+[node name="LobbyList" type="VBoxContainer" parent="TabContainer/LobbyBrowser/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="JoinLobby" type="Button" parent="TabContainer/LobbyBrowser/ScrollContainer/LobbyList"]
+layout_mode = 2
+text = "EXAMPLE LOBBY"
+
+[node name="Lobby" parent="TabContainer" instance=ExtResource("1_s1rn4")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[connection signal="pressed" from="TabContainer/Main/VBoxContainer/Local" to="." method="_on_local_pressed"]
+[connection signal="pressed" from="TabContainer/Main/VBoxContainer/Steam" to="." method="_on_steam_pressed"]
+[connection signal="pressed" from="TabContainer/ENet/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="TabContainer/ENet/VBoxContainer/LocalHost" to="." method="_on_local_host_pressed"]
+[connection signal="pressed" from="TabContainer/ENet/VBoxContainer/LocalJoin" to="." method="_on_local_join_pressed"]
+[connection signal="pressed" from="TabContainer/Steam/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="TabContainer/Steam/VBoxContainer/SteamHost" to="." method="_on_steam_host_pressed"]
+[connection signal="pressed" from="TabContainer/Steam/VBoxContainer/SteamJoin" to="." method="_on_steam_join_pressed"]
+[connection signal="pressed" from="TabContainer/LobbyBrowser/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="TabContainer/Lobby/Panel/Exit" to="." method="_on_back_button_pressed"]
+
+[editable path="TabContainer/Lobby"]

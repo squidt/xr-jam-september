@@ -1,0 +1,16 @@
+[gd_resource type="ORMMaterial3D" load_steps=5 format=3 uid="uid://cvjcwsfole3ps"]
+
+[ext_resource type="Texture2D" uid="uid://c02ym6xndswbc" path="res://src/stages/game/materials/rocks_with_dirt_albedo.png" id="1_y5es2"]
+[ext_resource type="Texture2D" uid="uid://hrqh48sxah5q" path="res://src/stages/game/materials/rocks_with_dirt_heightmap.png" id="2_0nr35"]
+[ext_resource type="Texture2D" uid="uid://dwfun4bv2o75j" path="res://src/stages/game/materials/rocks_with_dirt_normal.png" id="3_fvtpj"]
+[ext_resource type="Texture2D" uid="uid://dcfiaqqlb5hk3" path="res://src/stages/game/materials/rocks_with_dirt_orm.png" id="4_w8a6m"]
+
+[resource]
+albedo_texture = ExtResource("1_y5es2")
+orm_texture = ExtResource("4_w8a6m")
+normal_enabled = true
+normal_texture = ExtResource("3_fvtpj")
+heightmap_scale = 0.53
+heightmap_texture = ExtResource("2_0nr35")
+uv1_scale = Vector3(0.01, 0.01, 0.01)
+uv1_triplanar = true

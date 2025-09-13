@@ -49,6 +49,7 @@ func _ready() -> void:
 
 	contact.connect(_handle_damage)
 	destroyed.connect(_on_destroyed)
+	lifetime_timeout.connect(_on_destroyed)
 	get_tree().create_timer(lifetime).timeout.connect(func(): lifetime_timeout.emit())
 
 
@@ -173,4 +174,5 @@ func _debug_draw_penetration(pos: Vector3) -> void:
 
 
 func _on_destroyed():
-	queue_free()
+	if is_inside_tree() and is_multiplayer_authority():
+		queue_free()

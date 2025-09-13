@@ -7,6 +7,8 @@ class_name EnemyPather extends PathFollow3D
 			die()
 @export var speed: float = .5
 
+
 func die() -> void:
-	# do something then
-	queue_free()
+	if is_multiplayer_authority():
+		# do something then
+		queue_free()

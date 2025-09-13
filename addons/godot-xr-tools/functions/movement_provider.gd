@@ -62,12 +62,14 @@ func _ready():
 
 ## Override this method to perform pre-movement updates to the PlayerBody
 func physics_pre_movement(_delta: float, _player_body: XRToolsPlayerBody):
-	pass
+	if !is_multiplayer_authority():
+		return
 
 
 ## Override this method to apply motion to the PlayerBody
 func physics_movement(_delta: float, _player_body: XRToolsPlayerBody, _disabled: bool):
-	pass
+	if !is_multiplayer_authority():
+		return
 
 
 # This method verifies the movement provider has a valid configuration.
