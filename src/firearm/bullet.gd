@@ -130,6 +130,10 @@ func _on_hit(result: Dictionary) -> void:
 
 
 func _handle_damage(result: Dictionary) -> void:
+	if result.collider is RigidBody3D:
+		var rigid = result.collider as RigidBody3D
+		rigid.apply_impulse(Vector3(randf_range(-1.0,1.0), randf_range(0.2, 1.0), randf_range(-0.2,-1.0)),
+		result.position)
 	if result.collider.is_in_group("Hitbox"):
 		result.collider.report_hit(damage)
 		_spawn_at_impact(result, decal_hitbox)

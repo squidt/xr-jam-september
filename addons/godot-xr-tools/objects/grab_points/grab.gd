@@ -159,6 +159,7 @@ func release() -> void:
 	# Report the release
 	print_verbose("%s> released by %s", [what.name, by.name])
 	what.released.emit(what, by)
+	what.released_point.emit(what, by, point)
 
 
 # Hand has moved too far away from object, can no longer hold on to it.

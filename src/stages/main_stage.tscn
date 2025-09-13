@@ -9,7 +9,7 @@
 
 [node name="Staging" type="Node3D"]
 script = ExtResource("2_cwdte")
-main_scene = "uid://d0x3b86pjaki6"
+main_scene = "uid://cvdkot2uim7wf"
 prompt_for_continue = false
 
 [node name="Fade" parent="." instance=ExtResource("3_wpoc7")]
@@ -33,10 +33,6 @@ pose = &"aim"
 progress = 0.0
 
 [node name="Scene" type="Node3D" parent="."]
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Scene"]
-_spawnable_scenes = PackedStringArray("uid://qbmx03iibuuu", "uid://d0x3b86pjaki6", "uid://voe6qwp6kme4")
-spawn_path = NodePath("..")
 
 [node name="StartXR" parent="." instance=ExtResource("2_2lmv5")]
 

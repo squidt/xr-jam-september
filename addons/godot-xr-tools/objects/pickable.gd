@@ -118,8 +118,6 @@ var _highlighted : bool = false
 @onready var original_collision_mask : int = collision_mask
 @onready var original_collision_layer : int = collision_layer
 
-@onready var sync: MultiplayerSynchronizer = $MultiplayerSynchronizer
-
 
 # Add support for is_xr_class on XRTools classes
 func is_xr_class(name : String) -> bool:
@@ -128,8 +126,6 @@ func is_xr_class(name : String) -> bool:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	dropped.connect(request_drop_auth.rpc.bind(multiplayer.get_unique_id()).unbind(1))
-
 	# Get all grab points
 	for child in get_children():
 		var grab_point := child as XRToolsGrabPoint
@@ -150,38 +146,6 @@ func _exit_tree():
 	# Release secondary grab
 	if _grab_driver.secondary:
 		_grab_driver.secondary.release()
-
-
-#region Multiplayer Garbage
-
-@rpc("any_peer", "call_local", "reliable")
-func request_grab_auth(peer_id: int) -> void:
-	if !is_multiplayer_authority() or is_picked_up():
-		return
-
-	print_debug("%s giving auth to: %s" % [multiplayer.get_unique_id(), peer_id])
-	set_multiplayer_authority(peer_id)
-	sync.set_multiplayer_authority(peer_id)
-
-
-@rpc("any_peer", "call_local", "reliable")
-func request_drop_auth(peer_id: int) -> void:
-	if !is_multiplayer_authority():
-		return
-
-	# Return to server
-	print_debug("%s returning auth to %s" % [multiplayer.get_unique_id(), peer_id])
-	set_multiplayer_authority(1)
-	sync.set_multiplayer_authority(1)
-
-
-
-
-#endregion
-
-
-
-
 
 
 # Test if this object can be picked up
@@ -299,9 +263,6 @@ func pick_up(by: Node3D) -> void:
 	# Skip if not enabled
 	if not enabled:
 		return
-
-	# Get server auth
-	request_grab_auth.rpc(multiplayer.get_unique_id())
 
 	# Find the grabber information
 	var grabber := Grabber.new(by)

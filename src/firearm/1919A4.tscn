@@ -1,6 +1,6 @@
-[gd_scene load_steps=40 format=3 uid="uid://xmkjqkphkpgh"]
+[gd_scene load_steps=46 format=4 uid="uid://xmkjqkphkpgh"]
 
-[ext_resource type="PackedScene" uid="uid://d33dh1xqyewg6" path="res://src/firearm/1919A4.blend" id="1_quwjw"]
+[ext_resource type="PackedScene" uid="uid://pa8t3ochsl4a" path="res://src/firearm/1919A4.glb" id="1_go4du"]
 [ext_resource type="PackedScene" uid="uid://du32t1mb2kd7x" path="res://addons/godot-xr-tools/interactables/interactable_joystick.tscn" id="2_71yhy"]
 [ext_resource type="PackedScene" uid="uid://bddj5m7ull6g0" path="res://addons/godot-xr-tools/interactables/interactable_handle.tscn" id="3_71yhy"]
 [ext_resource type="Script" uid="uid://cfi3y8s6syw7o" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_redirect.gd" id="4_7vvfr"]
@@ -21,6 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://dp1p55yv8sc4t" path="res://src/firearm/base/firearm_action_slide_auto.tscn" id="14_6pebi"]
 [ext_resource type="Script" uid="uid://dyewkmieaxvc4" path="res://src/firearm/bullet_emitter.gd" id="15_6pebi"]
 [ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="18_go4du"]
+[ext_resource type="AudioStream" uid="uid://bsq6uyh1d52as" path="res://src/firearm/gunshot_1.wav" id="22_crn2u"]
+[ext_resource type="AudioStream" uid="uid://dxt8vyfyf18lh" path="res://src/firearm/gunshot_2.wav" id="23_h7tgr"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4wrow"]
 properties/0/path = NodePath("Interactions/WeaponControl:rotation")
@@ -33,13 +35,96 @@ properties/2/path = NodePath("Interactions/WeaponControl/ChargingHandle:slider_p
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wrow"]
-albedo_color = Color(0.0895907, 0.0895907, 0.0895907, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tjfkl"]
+resource_name = "glow"
+cull_mode = 2
+albedo_color = Color(0.833578, 0.906584, 0, 1)
+roughness = 0.5
+emission_enabled = true
+emission = Color(0.577536, 0.518771, 0, 1)
+emission_energy_multiplier = 5.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ffhk0"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qvftr"]
+resource_name = "Material"
+cull_mode = 2
+albedo_color = Color(0.205215, 0.204909, 0.210254, 1)
+roughness = 0.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4koj"]
-albedo_color = Color(0.00188723, 0.141003, 0.0361646, 1)
+[sub_resource type="ArrayMesh" id="ArrayMesh_1w21h"]
+_surfaces = [{
+"aabb": AABB(-0.0768272, -0.0554253, -0.0492267, 0.0751764, 0.0392632, 0.116246),
+"format": 34896613377,
+"index_count": 84,
+"index_data": PackedByteArray("AAABAAIAAAAKAAEAAwACAAEACgADAAEACwAAAAIACwAKAAAACwACAAwAAgAHAAwAAwAHAAIABQALAAwABQAMAAcACgAGAAMADQALAAUADQAFAAcACwAOAAoADgALAA0ACgAOAAYABgAEAAMABgAOAAQACQADAAQABwADAAkADgAJAAQADQAHAAgABwAJAAgADgANAA8ADgAPAAkADwANAAgADwAIAAkA"),
+"lods": [0.00341046, PackedByteArray("AAABAAIAAAAGAAEABQAAAAIABQAGAAAAAwACAAEABgADAAEABQACAAcAAwAHAAIABgAFAAgABQAHAAgABgAEAAMABwADAAkACQADAAQABwAJAAgABgAJAAQABgAIAAkA"), 0.00567888, PackedByteArray("AAAEAAIAAAACAAQABQAAAAIAAAAFAAIA"), 0.00686177, PackedByteArray("AAABAAIAAwACAAEAAAADAAEAAgADAAQAAAAEAAMAAAACAAQABQAAAAIAAAAFAAIA")],
+"name": "Army",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("h/H//9wGAABuFD8v3v8AAO8KWjfm/AAAZhmtG///AADtFhsINP0AAJjmUeQAAAAA//9R5PQJAAAAAK0bCvYAAPcEGwgq9gAAdw4AACL5AAAH++P31AkAABHp4/fKAgAAeAI/L9T4AACQ67/QIAAAAIb9v9AqBwAAD/WkyBgDAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ydsil"]
+resource_name = "1919A4_Cylinder_002"
+_surfaces = [{
+"aabb": AABB(-0.00209529, 0.249463, -0.216898, 0.00419058, 0.00327557, 1e-05),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAAADAAEA"),
+"name": "glow",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("//8AAAAAAAAAAP//AAAAAP////8AAAAAAAAAAAAAAAA=")
+}, {
+"aabb": AABB(-0.0118282, 0.243432, -0.222982, 0.0236563, 0.0209897, 0.00866133),
+"format": 34359742465,
+"index_count": 210,
+"index_data": PackedByteArray("AAAeAB8AHwAeAAQAAAABAB4AHwAGAAAAAQAgAB4AIQABAAAAHgAgAAUAHgAFAAQAAQAHACAABgAgAAcAIgAHAAEAIQAiAAEAIwAGAAcAAAAjACEAAAAGACMABgAkACAAJAAFACAAHwAkAAYAIwAHACUAIgAlAAcAIQAjAA0ADQAjACUADwAiACEAIQANAA8AAgAkAB8AHwAEAAIAAwAlACIADwADACIADQAlAA4AAwAOACUADwANABAADgAQAA0AAwAPABIADwAQABIAEQAOAAMAAwASABEADgATABAAEgAQABMAEQATAA4AEgATABEAAgAJACQAJAAJAAUACwAJAAIACwAKAAkAAgAMAAsADAAKAAsAAgAEAAwACQAKAAgACQAIAAUADAAIAAoABAAFAAgABAAIAAwAFAAVABYAGAAWABUAGAAZABYAFAAmABUAJgAYABUAJwAZABgAJgAnABgAJwAaABkAFwAmABQAHAAaACcAGwAnACYAGwAcACcAFwAbACYAHAAdABoAHQAUABoAGwAdABwAHQAXABQAGwAXAB0A"),
+"lods": [0.00443302, PackedByteArray("AAABAAIAAAADAAEAAgABAAQAAQAFAAQAAgAGAAAAAQAHAAUAAwAHAAEABgAFAAcABAAFAAgABgAJAAUACQAIAAUAAgAJAAYACQAKAAgACwAJAAIACwAKAAkAAgAEAAwAAgAMAAsABAAIAAwADAAKAAsADAAIAAoADQAGAAcAAAAGAA0ADQAHAA4AAwAOAAcAAAANAA8ADwADAAAADgAQAA0ADwANABAAEQAOAAMAAwAPABIAAwASABEADwAQABIAEQATAA4ADgATABAAEgATABEAEgAQABMAFAAVABYAFwAVABQAGAAWABUAGAAZABYAGAAaABkAGwAYABUAFwAbABUAHAAaABgAGwAcABgAHQAUABoAHQAXABQAHAAdABoAGwAXAB0AGwAdABwA")],
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 40,
+"vertex_data": PackedByteArray("8Hw8oaGFhj5QVWS+8Hw8oaGFhj7Mdlu+GNcjPOhmgT5QVWS+GNcjvOhmgT7Mdlu+GNcjPOhmgT7Mdlu+8spBPPlTgT7Mdlu+SPJVrVFihz5QVWS+SPJVrVFihz7Mdlu+8spBPFBGeT7Mdlu+8spBPPlTgT5QVWS+8spBPFBGeT5QVWS+GNcjPFBGeT5QVWS+GNcjPFBGeT7Mdlu+8spBvPlTgT5QVWS+8spBvPlTgT7Mdlu+GNcjvOhmgT5QVWS+8spBvFBGeT5QVWS+GNcjvFBGeT7Mdlu+GNcjvFBGeT5QVWS+8spBvFBGeT7Mdlu+IFEJuyRzfz6iGl6+IFEJu+hmgT4qZWK+IFEJu+hmgT6iGl6+IFEJu1BGeT6iGl6+FlEJO+hmgT4qZWK+FlEJO+hmgT6iGl6+FlEJOyRzfz6iGl6+IFEJu1BGeT4qZWK+FlEJO1BGeT4qZWK+FlEJO1BGeT6iGl6+f7TnO7oFhT7Mdlu+f7TnO7oFhT5QVWS+PAgJPDuchT7Mdlu+f7Tnu7oFhT5QVWS+f7Tnu7oFhT7Mdlu+PAgJvDuchT5QVWS+PAgJPDuchT5QVWS+PAgJvDuchT7Mdlu+IFEJuyRzfz4qZWK+FlEJOyRzfz4qZWK+")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_1w21h")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_crn2u"]
+resource_name = "1919A4_Cube_002"
+_surfaces = [{
+"aabb": AABB(-0.00209529, 0.249463, -0.216898, 0.00419058, 0.00327557, 1e-05),
+"attribute_data": PackedByteArray("/3//P/+fAAD/n/8//38AAA=="),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAAADAAEA"),
+"material": SubResource("StandardMaterial3D_tjfkl"),
+"name": "glow",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("//8AAAAA/78AAP//AAD/v/////8AAP+/AAAAAAAA/7//////////////////////")
+}, {
+"aabb": AABB(-0.0118282, 0.243432, -0.222982, 0.0236563, 0.0209897, 0.00866133),
+"attribute_data": PackedByteArray("AACAPwAAAD8AAIA/AAAAAAAAQD8AAAA/AABAPwAAAAAAAEA/AAAAPwAAQD8AAAAAAABAPwAAAAAAAEA/AAAAPwAAgD8AAAA/AACAPwAAAAAAAEA/AAAAPwAAQD8AAAAAAABAPwAAAD8AAEA/AAAAAAAAgD4AAAAAAACAPgAAAD8AAIA+AAAAAAAAgD4AAAA/AACAPgAAAD8AAIA+AAAAAAAAAAAAAAA/AAAAAAAAAAAAAIA+AAAAAAAAgD4AAAA/AACAPgAAAD8AAIA+AAAAAAAAAAAAAAAAAAAAAAAAAD8AAAAAAAAAPwAAgD4AAAA/AACAPgAAAD8AAAAAAAAAPwAAgD4AAAA/AACAPgAAAD8AAEA/AAAAPwAAQD8AAAA/AABAPwAAAD8AAEA/AAAAPwAAgD8AAAA/AACAPwAAAD8AAIA/AAAAAAAAQD8AAAAAAABAPwAAAAAAAIA/AAAAAAAAQD8AAAAAAABAPwAAAAAAAIA+AAAAAAAAgD4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgD4AAAAAAACAPgAAAAAAAIA+AAAAPwAAgD4AAAAAAACAPgAAAAAAAIA+AAAAPwAAQD8AAAAAAABAPwAAAD8AAEA/AAAAPwAAQD8AAAAAAAAAPwAAgD8AACA/AABAPwAAID8AAIA/AADAPgAAgD8AAMA+AABAPwAAID8AAAA/AAAAPwAAgD4AACA/AACAPgAAwD4AAAA/AADAPgAAgD4AAAA+AAAAPwAAwD4AAIA+AADAPgAAAD8AAAA+AACAPgAAID8AAAA/AABgPwAAgD4AAGA/AAAAPwAAID8AAIA+AADAPgAAgD4AAAA/AAAAAAAAAD8AAIA+AADAPgAAAAAAAMA+AABAPwAAID8AAAA/AAAgPwAAQD8AAMA+AAAAPwAAYD8AAAAAAABgPwAAAD8AAGA/AAAAPwAAYD8AAAAAAABAPwAAAD8AAEA/AAAAAAAAYD8AAAA/AABgPwAAAAAAAGA/AAAAAAAAYD8AAAA/AAAAPgAAAAAAAAA+AAAAPwAAAD4AAAA/AAAAPgAAAAAAAIA+AAAAAAAAgD4AAAA/AAAAPgAAAAAAAAA+AAAAPwAAAD4AAAA/AAAAPgAAAAAAAAA+AAAAPwAAAD4AAAA/AABgPwAAAD8AAGA/AAAAPwAAYD8AAAAAAABgPwAAAAAAAAA+AAAAAAAAAD4AAAAAAAAAPwAAQD8AAAA/AABAPwAAAD8AAAA/AAAAPwAAAD8="),
+"format": 34359742487,
+"index_count": 210,
+"index_data": PackedByteArray("AABWAFcAAAABAFYAWAADAAIAWABZAAMAWgAFAFsAWgAHAAUAXAAGAF0AXAAEAAYACgALAAwACgANAAsADgAPABAADgARAA8ACABeAAkACABfAF4AEgBgAGEAEgATAGAAYgAVABQAYgBjABUAZAAXAGUAZAAZABcAGABmABYAGABnAGYAaAAaAGkAaAAbABoAagAdAB4AHgAdACAAHgAgACEAagBrAB0AHABrAGoAHAAfAGsAIgAjACQAIgAlACMAJAAjAGwAJABsAG0AbQBsACYAbQAmACcAbgApACoAKgApACwAKgAsAC0AbgBvACkAKABvAG4AKAArAG8ALgBwAHEAcQBwADAAcQAwADEALgAvAHAAMgAvAC4AMgAzAC8ANAA1ADYANAA3ADUAOAA5ADoAOAA7ADkAPAA9AD4APAByAD0APwByADwAPwBAAHIAcwBTAFQAcwB0AFMAUgB0AHMAUgBVAHQAdQBDAEEAdQBCAEMARABCAHUARABFAEIARgBHAEgARgBJAEcASgBLAEwASgBNAEsATgBPAFAATgBRAE8A"),
+"lods": [0.00443302, PackedByteArray("AAABAAIAAgABAAMABAAFAAYABAAHAAUACAAEAAYACAAGAAkACgALAAwACgANAAsADgAPABAADgARAA8AEgATABQAFAATABUAFgAXABgAFgAZABcAGAAaABYAGAAbABoAHAAdAB4AHAAfAB0AHgAdACAAHgAgACEAIgAjACQAIgAlACMAJAAjACYAJAAmACcAKAApACoAKAArACkAKgApACwAKgAsAC0ALgAvADAALgAwADEAMgAvAC4AMgAzAC8ANAA1ADYANAA3ADUAOAA5ADoAOAA7ADkAPAA9AD4APwA9ADwAPwBAAD0AQQBCAEMARABCAEEARABFAEIARgBHAEgARgBJAEcASgBLAEwASgBNAEsATgBPAFAATgBRAE8AUgBTAFQAUgBVAFMA")],
+"material": SubResource("StandardMaterial3D_qvftr"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 118,
+"vertex_data": PackedByteArray("8Hw8oaGFhj5QVWS+8Hw8oaGFhj7Mdlu+GNcjPOhmgT5QVWS+GNcjPOhmgT7Mdlu+8spBPPlTgT5QVWS+8spBPFBGeT7Mdlu+8spBPPlTgT7Mdlu+8spBPFBGeT5QVWS+SPJVrVFihz5QVWS+SPJVrVFihz7Mdlu+GNcjPOhmgT5QVWS+GNcjPFBGeT7Mdlu+GNcjPFBGeT5QVWS+GNcjPOhmgT7Mdlu+GNcjvOhmgT7Mdlu+GNcjvFBGeT5QVWS+GNcjvFBGeT7Mdlu+GNcjvOhmgT5QVWS+GNcjvOhmgT5QVWS+GNcjvOhmgT7Mdlu+8Hw8oaGFhj5QVWS+8Hw8oaGFhj7Mdlu+8spBvPlTgT7Mdlu+8spBvFBGeT5QVWS+8spBvPlTgT5QVWS+8spBvFBGeT7Mdlu+SPJVrVFihz7Mdlu+SPJVrVFihz5QVWS+8Hw8oaGFhj5QVWS+8spBvPlTgT5QVWS+GNcjvOhmgT5QVWS+SPJVrVFihz5QVWS+8spBvFBGeT5QVWS+GNcjvFBGeT5QVWS+GNcjPFBGeT5QVWS+8spBPPlTgT5QVWS+GNcjPOhmgT5QVWS+8spBPFBGeT5QVWS+SPJVrVFihz5QVWS+8Hw8oaGFhj5QVWS+8Hw8oaGFhj7Mdlu+8spBPPlTgT7Mdlu+GNcjPOhmgT7Mdlu+SPJVrVFihz7Mdlu+8spBPFBGeT7Mdlu+GNcjPFBGeT7Mdlu+GNcjvOhmgT7Mdlu+8spBvPlTgT7Mdlu+SPJVrVFihz7Mdlu+8Hw8oaGFhj7Mdlu+GNcjvFBGeT7Mdlu+8spBvFBGeT7Mdlu+GNcjvFBGeT5QVWS+8spBvFBGeT7Mdlu+GNcjvFBGeT7Mdlu+8spBvFBGeT5QVWS+GNcjPFBGeT7Mdlu+8spBPFBGeT5QVWS+GNcjPFBGeT5QVWS+8spBPFBGeT7Mdlu+IFEJuyRzfz6iGl6+IFEJu+hmgT4qZWK+IFEJu+hmgT6iGl6+IFEJu1BGeT6iGl6+IFEJu1BGeT4qZWK+FlEJO+hmgT4qZWK+FlEJOyRzfz6iGl6+FlEJO+hmgT6iGl6+FlEJO1BGeT4qZWK+FlEJO1BGeT6iGl6+IFEJu1BGeT4qZWK+FlEJO1BGeT6iGl6+FlEJO1BGeT4qZWK+IFEJu1BGeT6iGl6+FlEJO+hmgT4qZWK+IFEJu+hmgT6iGl6+IFEJu+hmgT4qZWK+FlEJO+hmgT6iGl6+FlEJO1BGeT6iGl6+IFEJuyRzfz6iGl6+FlEJOyRzfz6iGl6+IFEJu1BGeT6iGl6+IFEJu1BGeT4qZWK+FlEJO+hmgT4qZWK+IFEJu+hmgT4qZWK+FlEJO1BGeT4qZWK+f7TnO7oFhT7Mdlu+f7TnO7oFhT5QVWS+f7TnO7oFhT5QVWS+f7TnO7oFhT7Mdlu+8spBPPlTgT5QVWS+8spBPPlTgT7Mdlu+PAgJPDuchT5QVWS+PAgJPDuchT7Mdlu+PAgJPDuchT7Mdlu+PAgJPDuchT5QVWS+f7Tnu7oFhT7Mdlu+f7Tnu7oFhT5QVWS+f7Tnu7oFhT5QVWS+f7Tnu7oFhT7Mdlu+8spBvPlTgT7Mdlu+8spBvPlTgT5QVWS+PAgJvDuchT7Mdlu+PAgJvDuchT5QVWS+PAgJvDuchT5QVWS+PAgJvDuchT7Mdlu+f7Tnu7oFhT5QVWS+PAgJvDuchT5QVWS+PAgJPDuchT5QVWS+f7TnO7oFhT5QVWS+f7TnO7oFhT7Mdlu+PAgJPDuchT7Mdlu+PAgJvDuchT7Mdlu+f7Tnu7oFhT7Mdlu+IFEJuyRzfz4qZWK+IFEJuyRzfz4qZWK+FlEJOyRzfz4qZWK+FlEJOyRzfz4qZWK+gVp9JX0lQC2BWn0lfSVALX0lgVqBWr4SfSWBWoFavhKB2n2lgVpA7f///3////+/gdp9pYFaQO3///9/////v32lgdp9Jb7SfaWB2n0lvtIAAP9/////vwAA/3////+/AAD/f////78AAP9/////v////3////+/////f////7////9/////v////3////+/gdqBWoFaQG2B2oFagVpAbX2lfSV9Jb5SfaV9JX0lvlJ9JX2lgVq+kgAA/3////+/fSV9pYFavpIAAP9/////v4Fagdp9JUCtgVqB2n0lQK3/////////v/////////+//////////7//////////v/////////+//////////7//////////v/////////+//////////7//////////v/////////+//////////7//f/9/////P/9//3////8//3//f////z//f/9/////P/9//3////8//3//f////z//f/9/////P/9//3////8//3//f////z//f/9/////P/9//3////8//3//f////z//fwAA////v/9/AAD///+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//fwAA////v/9/AAD///+/AAD/f/9///8AAP9//3///wAA/3//f///AAD/f/9///8AAP9//3///////3//f///////f/9///////9//3///////3//f///////f/9/////fwAA////v/9/AAD///+//38AAP///7//fwAA////v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3//f/9/////f/9//3////9//3//f////3//f/9//////////3//////////f/////////9//////////3///4FafSV9JUAtgVp9JX0lQC19JYFagVq+En0lgVqBWr4S////f////7////9/////v4HafaWBWkDtgdp9pYFaQO19pYHafSW+0n2lgdp9Jb7SgdqBWoFaQG2B2oFagVpAbX2lfSV9Jb5SfaV9JX0lvlIAAP9/////vwAA/3////+/fSV9pYFavpJ9JX2lgVq+koFagdp9JUCtgVqB2n0lQK3/////////v/////////+//////////7//////////v/9//3////8//3//f////z//f/9/////P/9//3////8/AAD/f/9//////////3//////////f///////f/9///8=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ydsil")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c4koj"]
+radius = 0.0584322
 
 [sub_resource type="Resource" id="Resource_crn2u"]
 script = ExtResource("7_f03vt")
@@ -53,16 +138,13 @@ open_pose = ExtResource("10_tjfkl")
 closed_pose = ExtResource("10_tjfkl")
 metadata/_custom_type_script = "uid://krob44m8t54b"
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_c4koj"]
-radius = 0.0584322
-
 [sub_resource type="Resource" id="Resource_wy2q5"]
 script = ExtResource("7_f03vt")
 open_pose = ExtResource("6_pu56s")
 closed_pose = ExtResource("6_pu56s")
 metadata/_custom_type_script = "uid://krob44m8t54b"
 
-[sub_resource type="Resource" id="Resource_go4du"]
+[sub_resource type="Resource" id="Resource_nvoa2"]
 resource_local_to_scene = true
 script = ExtResource("9_vn7i2")
 type = "BUTTON"
@@ -75,7 +157,7 @@ open_pose = ExtResource("9_xhiev")
 closed_pose = ExtResource("9_xhiev")
 metadata/_custom_type_script = "uid://krob44m8t54b"
 
-[sub_resource type="Resource" id="Resource_tjfkl"]
+[sub_resource type="Resource" id="Resource_csv0i"]
 resource_local_to_scene = true
 script = ExtResource("9_vn7i2")
 type = "BUTTON"
@@ -91,15 +173,27 @@ radius = 0.0338677
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_go4du"]
 transparency = 1
 blend_mode = 1
-albedo_color = Color(1, 1, 1, 0.00871572)
+albedo_color = Color(1, 1, 1, 0.00492595)
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 5.0
 
+[sub_resource type="ArrayMesh" id="ArrayMesh_go4du"]
+_surfaces = [{
+"aabb": AABB(-0.118653, -0.0147857, -0.0487061, 0.237305, 0.0295715, 0.0974121),
+"attribute_data": PackedByteArray("Q9dhPNWzlzwAAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAAACjeHw/1bOXPKN4fD9hQns/AACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAgD9D12E8YUJ7P0PXYTzVs5c8AACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/Q9dhPGFCez8AAAAAAACAP6N4fD9hQns/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAAACjeHw/YUJ7PwAAgD8AAIA/o3h8P9WzlzwAAIA/AAAAAEPXYTzVs5c8o3h8P2FCez8AAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAIA/AACAPwAAgD8AAAAAAAAAAAAAgD9D12E81bOXPAAAAAAAAAAAAAAAAAAAAAAAAIA/AACAPwAAgD8AAAAAAACAPwAAgD/Jumg9AACAP8m6aD0AAAAAAAAAAMm6aD0AAIA/ybpoPQAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAABTdHE/ybpoPQAAAAAAAIA/AAAAAAAAgD8AAIA/AACAPwAAgD8AAAAAAACAPwAAAAAAAAAAAACAPwAAgD/Jumg9AACAP8m6aD0AAAAAAACAP1N0cT8AAAAAU3RxPwAAgD8AAAAAAACAPwAAgD8AAAAAAACAPwAAgD/Jumg9AACAPwAAAAAAAIA/AACAPwAAAAAAAAAAybpoPQAAAAAAAIA/AAAAAAAAgD8AAIA/"),
+"format": 34359738391,
+"material": SubResource("StandardMaterial3D_go4du"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 84,
+"vertex_data": PackedByteArray("GQDqPe4/cjwFAEI9FQDzPe4/cjz/f0e9FQDzPe4/cjz/f0c9FQDzPe4/crz/f0e9FQDzPe4/cjz/f0e9FQDzve4/cjz/f0e9FQDzPe4/cjz/f0e9GQDqPe4/cjwFAEK9GQDqve4/cjwFAEK9FQDzPe4/crz/f0c9FQDzPe4/cjz/f0c9FQDzPe4/crz/f0e9FQDzPe4/cjz/f0c9FQDzPe4/crz/f0c9FQDzve4/crz/f0c9FQDzPe4/cjz/f0c9FQDzPe4/cjz/f0e9FQDzPe4/crz/f0e9FQDzve4/crz/f0c9FQDzPe4/crz/f0c9FQDzPe4/crz/f0e9FQDzve4/crz/f0c9FQDzve4/crz/f0e9FQDzve4/cjz/f0e9FQDzve4/cjz/f0c9GQDqve4/cjwFAEI9GQDqPe4/cjwFAEI9FQDzve4/cjz/f0c9FQDzPe4/cjz/f0c9FQDzve4/crz/f0c9GQDqve4/cjwFAEI9FQDzve4/cjz/f0c9GQDqve4/cjwFAEK9FQDzve4/cjz/f0e9FQDzve4/cjz/f0c9FQDzve4/crz/f0c9FQDzPe4/cjz/f0e9GQDqve4/cjwFAEK9FQDzve4/cjz/f0e9GQDqPe4/cjwFAEK9FQDzPe4/cjz/f0e9GQDqPe4/cjwFAEI9GQDqve4/cjwFAEK9FQDzve4/cjz/f0c9FQDzve4/cjz/f0e9FQDzPe4/crz/f0e9FQDzve4/cjz/f0e9FQDzve4/crz/f0e9FQDzve4/cjz/f0c9GQDqPe4/cjwFAEI9FQDzPe4/cjz/f0c9FQDzve4/crz/f0c9FQDzPe4/crz/f0e9FQDzve4/crz/f0e9GQDqPQcAGLwFAEK9GQDqPe4/cjwFAEK9GQDqPe4/cjwFAEI9GQDqPe4/cjwFAEI9GQDqve4/cjwFAEI9GQDqPQcAGLwFAEI9GQDqPQcAGLwFAEK9GQDqvQcAGLwFAEK9GQDqPe4/cjwFAEK9GQDqPe4/cjwFAEI9GQDqPQcAGLwFAEI9GQDqPQcAGLwFAEK9GQDqPQcAGLwFAEK9GQDqPQcAGLwFAEI9GQDqvQcAGLwFAEI9GQDqvQcAGLwFAEI9GQDqve4/cjwFAEI9GQDqve4/cjwFAEK9GQDqve4/cjwFAEK9GQDqPe4/cjwFAEK9GQDqvQcAGLwFAEK9GQDqvQcAGLwFAEI9GQDqPQcAGLwFAEI9GQDqve4/cjwFAEI9GQDqvQcAGLwFAEK9GQDqPQcAGLwFAEK9GQDqvQcAGLwFAEI9GQDqve4/cjwFAEK9GQDqvQcAGLwFAEK9GQDqvQcAGLwFAEI9/3///wAAAAD/f/////8AAP9//////wAA/////wAA/z//////AAD/P/////8AAP8//3//////AAD/f/////8AAP9//////wAA////f/9//n////9//3/+f////3//f/5//3//fwAA/z//f/9/AAD/P/9//38AAP8/////f/9//n////9//3/+f////3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAAAAD/f/9//n8AAP9//3/+fwAA/3//f/5//3///wAAAAD/f///AAAAAP9///8AAAAA/3//fwAA/z//f/9/AAD/P/9//38AAP8//3///wAAAAD/f///AAAAAP9//////wAAAAD/f/9//n8AAP9//3/+fwAA/3//f/5//3//////AAD/f/////8AAP9//////wAA/3//////AAD/f/////8AAP9///8AAAAA/3//////AAD/f///AAAAAP9//////wAA/////wAA/z//////AAD/P/////8AAP8//3///wAAAAD/f///AAAAAP9//////wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAAAAD/f/9/AIAAAP9//38AgAAA/3//fwCA/////wAA/7//////AAD/v/////8AAP+//3//fwAA/7//f/9/AAD/v/9//38AAP+/AAD/f/9/AIAAAP9//38AgAAA/3//fwCA/3//////////f/////////9/////////////f/9/AID///9//38AgP///3//fwCA/3//fwAA/7//f/9/AAD/v/9//38AAP+//////wAA/7//////AAD/v/////8AAP+//3//////////f/////////9/////////////f/9/AID///9//38AgP///3//fwCA")
+}]
+
 [sub_resource type="GDScript" id="GDScript_tjfkl"]
-resource_name = "GloSpot"
+resource_name = "Globus"
 script/source = "@tool 
-extends CSGBox3D
+extends MeshInstance3D
 
 @export var freq: float = 1.0
 @export var amp: float = 1.0
@@ -108,10 +202,11 @@ var _time: float = 0.0
 func _process(delta: float) -> void:
 	if visible:
 		_time += delta
-		material = material as StandardMaterial3D
+
+		material_override = material_override as StandardMaterial3D
 		var sine = sin(_time * TAU / freq) * amp
 		var v = remap(sine, -1.0, 1.0, 0.0, .01)
-		material.albedo_color.a = v
+		material_override.albedo_color.a = v
 "
 
 [sub_resource type="Resource" id="Resource_ffhk0"]
@@ -185,185 +280,163 @@ func _on_loading_cover_released(interactable: Variant) -> void:
 		firearm.is_belt_loadable = false
 "
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nvoa2"]
+streams_count = 2
+stream_0/stream = ExtResource("22_crn2u")
+stream_1/stream = ExtResource("23_h7tgr")
+
 [node name="1919A4" type="Node3D"]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_4wrow")
 
-[node name="1919A4" parent="." instance=ExtResource("1_quwjw")]
+[node name="1919A4" parent="." instance=ExtResource("1_go4du")]
 
 [node name="Receiver" parent="1919A4" index="0"]
-material_override = SubResource("StandardMaterial3D_4wrow")
-
-[node name="Barrel" parent="1919A4/Receiver" index="0"]
-material_override = SubResource("StandardMaterial3D_4wrow")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.132748, -0.170135)
 
 [node name="BulletEmitter" type="Node3D" parent="1919A4/Receiver/Barrel" index="0" node_paths=PackedStringArray("firearm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.207986, -0.787457)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.213097, -0.764648)
 script = ExtResource("15_6pebi")
 firearm = NodePath("../../../../Firearm")
 metadata/_custom_type_script = "uid://dyewkmieaxvc4"
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="1919A4/Receiver/Barrel/BulletEmitter"]
-_spawnable_scenes = PackedStringArray("uid://d0wq6vy45jc45", "uid://crj658urku6dq")
-spawn_path = NodePath("..")
-
 [node name="ChargingHandle" parent="1919A4/Receiver" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0424862, 0.0747841, 0.132569)
-material_override = SubResource("StandardMaterial3D_ffhk0")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0538233, 0.0566498, 0.0808953)
 
 [node name="Cover" parent="1919A4/Receiver" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0962342, 0.075076)
-material_override = SubResource("StandardMaterial3D_4wrow")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0879494, 0.0698217)
 
-[node name="TripodPivot" parent="1919A4" index="1"]
-material_override = SubResource("StandardMaterial3D_c4koj")
-
-[node name="Cylinder_002" parent="1919A4/TripodPivot" index="0"]
-material_override = SubResource("StandardMaterial3D_c4koj")
-
-[node name="Cylinder_003" parent="1919A4/TripodPivot" index="1"]
-material_override = SubResource("StandardMaterial3D_c4koj")
-
-[node name="Cylinder_004" parent="1919A4/TripodPivot" index="2"]
-material_override = SubResource("StandardMaterial3D_c4koj")
+[node name="Sight" parent="1919A4/Receiver" index="4"]
+mesh = SubResource("ArrayMesh_crn2u")
 
 [node name="Interactions" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.132748, -0.170135)
 
-[node name="LoadingCoverOrigin" type="Node3D" parent="Interactions"]
-
-[node name="LoadingCover" parent="Interactions/LoadingCoverOrigin" instance=ExtResource("4_ffhk0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0873505, 0.0737715)
+[node name="LoadingCover" parent="Interactions" instance=ExtResource("4_ffhk0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0879494, 0.0698217)
 hinge_limit_min = -105.0
 hinge_limit_max = 0.0
 
-[node name="ToLoadingCover" type="RemoteTransform3D" parent="Interactions/LoadingCoverOrigin/LoadingCover"]
-remote_path = NodePath("../../../../1919A4/Receiver/Cover")
+[node name="HandleOrigin" type="Node3D" parent="Interactions/LoadingCover"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0176959, 0.157751)
 
-[node name="GrabPointHandRight" parent="Interactions/LoadingCoverOrigin/LoadingCover" instance=ExtResource("5_pu56s")]
+[node name="InteractableHandle" parent="Interactions/LoadingCover/HandleOrigin" instance=ExtResource("3_71yhy")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/LoadingCover/HandleOrigin/InteractableHandle"]
+shape = SubResource("SphereShape3D_c4koj")
+
+[node name="GPRRight" type="Marker3D" parent="Interactions/LoadingCover/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
+script = ExtResource("4_7vvfr")
+target = NodePath("../../../GrabPointHandRight")
+metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
+
+[node name="GPRLeft" type="Marker3D" parent="Interactions/LoadingCover/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
+script = ExtResource("4_7vvfr")
+target = NodePath("../../../GrabPointHandLeft")
+metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
+
+[node name="ToMesh" type="RemoteTransform3D" parent="Interactions/LoadingCover"]
+remote_path = NodePath("../../../1919A4/Receiver/Cover")
+
+[node name="GrabPointHandRight" parent="Interactions/LoadingCover" instance=ExtResource("5_pu56s")]
 transform = Transform3D(0.417122, -1.8233e-08, 0.908851, 0.908851, -3.97271e-08, -0.417122, 4.37114e-08, 1, 1.91069e-15, -0.0450277, 0.023623, 0.181225)
 hand_pose = SubResource("Resource_crn2u")
 
-[node name="GrabPointHandLeft" parent="Interactions/LoadingCoverOrigin/LoadingCover" instance=ExtResource("6_f03vt")]
+[node name="GrabPointHandLeft" parent="Interactions/LoadingCover" instance=ExtResource("6_f03vt")]
 transform = Transform3D(0.464904, 2.03216e-08, -0.885361, -0.885361, -3.87004e-08, -0.464904, -4.37114e-08, 1, 1.30721e-15, 0.0507981, 0.0261818, 0.182048)
 hand_pose = SubResource("Resource_h7tgr")
 
-[node name="HandleOrigin" type="Node3D" parent="Interactions/LoadingCoverOrigin/LoadingCover"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0176959, 0.157751)
-
-[node name="InteractableHandle" parent="Interactions/LoadingCoverOrigin/LoadingCover/HandleOrigin" instance=ExtResource("3_71yhy")]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/LoadingCoverOrigin/LoadingCover/HandleOrigin/InteractableHandle"]
-shape = SubResource("SphereShape3D_c4koj")
-
-[node name="GPRRight" type="Marker3D" parent="Interactions/LoadingCoverOrigin/LoadingCover/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
-script = ExtResource("4_7vvfr")
-target = NodePath("../../../GrabPointHandRight")
-metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
-
-[node name="GPRLeft" type="Marker3D" parent="Interactions/LoadingCoverOrigin/LoadingCover/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
-script = ExtResource("4_7vvfr")
-target = NodePath("../../../GrabPointHandLeft")
-metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
-
-[node name="WeaponControl" parent="Interactions" instance=ExtResource("2_71yhy")]
+[node name="Aiming" parent="Interactions" instance=ExtResource("2_71yhy")]
 joystick_x_limit_min = -5.0
 joystick_x_limit_max = 10.0
-joystick_y_limit_min = -30.0
-joystick_y_limit_max = 30.0
 
-[node name="GrabPointHandRight" parent="Interactions/WeaponControl" instance=ExtResource("5_pu56s")]
+[node name="GrabPointHandRight" parent="Interactions/Aiming" instance=ExtResource("5_pu56s")]
 transform = Transform3D(1, 0, 0, 0, 0.977717, -0.209926, 0, 0.209926, 0.977717, 0.0312987, 0.112875, 0.418398)
 hand_pose = SubResource("Resource_wy2q5")
 
-[node name="GrabPointInput" type="Node" parent="Interactions/WeaponControl/GrabPointHandRight" node_paths=PackedStringArray("pickable")]
+[node name="GrabPointInput" type="Node" parent="Interactions/Aiming/GrabPointHandRight" node_paths=PackedStringArray("pickable")]
 script = ExtResource("8_gyh0s")
 pickable = NodePath("../../GunHandleOrigin/InteractableHandle")
-conditions = Array[ExtResource("9_vn7i2")]([SubResource("Resource_go4du")])
+conditions = Array[ExtResource("9_vn7i2")]([SubResource("Resource_nvoa2")])
 metadata/_custom_type_script = "uid://ex8evc6wlcxk"
 
-[node name="GrabPointHandLeft" parent="Interactions/WeaponControl" instance=ExtResource("6_f03vt")]
+[node name="GrabPointHandLeft" parent="Interactions/Aiming" instance=ExtResource("6_f03vt")]
 transform = Transform3D(1, 0, 0, 0, 0.977717, -0.209926, 0, 0.209926, 0.977717, -0.0337276, 0.112875, 0.418398)
 hand_pose = SubResource("Resource_0r86o")
 
-[node name="GrabPointInput" type="Node" parent="Interactions/WeaponControl/GrabPointHandLeft" node_paths=PackedStringArray("pickable")]
+[node name="GrabPointInput" type="Node" parent="Interactions/Aiming/GrabPointHandLeft" node_paths=PackedStringArray("pickable")]
 script = ExtResource("8_gyh0s")
 pickable = NodePath("../../GunHandleOrigin/InteractableHandle")
-conditions = Array[ExtResource("9_vn7i2")]([SubResource("Resource_tjfkl")])
+conditions = Array[ExtResource("9_vn7i2")]([SubResource("Resource_csv0i")])
 metadata/_custom_type_script = "uid://ex8evc6wlcxk"
 
-[node name="ToMesh" type="RemoteTransform3D" parent="Interactions/WeaponControl"]
+[node name="ToMesh" type="RemoteTransform3D" parent="Interactions/Aiming"]
 remote_path = NodePath("../../../1919A4/Receiver")
-update_position = false
-update_scale = false
 
-[node name="ToLoadingCover" type="RemoteTransform3D" parent="Interactions/WeaponControl"]
-remote_path = NodePath("../../LoadingCoverOrigin")
+[node name="ToLoadingCoverInteraction" type="RemoteTransform3D" parent="Interactions/Aiming"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0879494, 0.0698217)
+remote_path = NodePath("../../LoadingCover")
 
-[node name="GunHandleOrigin" type="Node3D" parent="Interactions/WeaponControl"]
+[node name="GunHandleOrigin" type="Node3D" parent="Interactions/Aiming"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0744184, 0.478404)
 
-[node name="InteractableHandle" parent="Interactions/WeaponControl/GunHandleOrigin" instance=ExtResource("3_71yhy")]
+[node name="InteractableHandle" parent="Interactions/Aiming/GunHandleOrigin" instance=ExtResource("3_71yhy")]
 press_to_hold = false
 second_hand_grab = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/WeaponControl/GunHandleOrigin/InteractableHandle"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/Aiming/GunHandleOrigin/InteractableHandle"]
 shape = SubResource("SphereShape3D_7vvfr")
 
-[node name="GPRRight" type="Marker3D" parent="Interactions/WeaponControl/GunHandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
+[node name="GPRRight" type="Marker3D" parent="Interactions/Aiming/GunHandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0136792, 0.00749958)
 script = ExtResource("4_7vvfr")
 target = NodePath("../../../GrabPointHandRight")
 metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
 
-[node name="GPRLeft" type="Marker3D" parent="Interactions/WeaponControl/GunHandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
+[node name="GPRLeft" type="Marker3D" parent="Interactions/Aiming/GunHandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0136792, 0.00749958)
 script = ExtResource("4_7vvfr")
 target = NodePath("../../../GrabPointHandLeft")
 metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
 
-[node name="ChargingHandle" parent="Interactions/WeaponControl" instance=ExtResource("11_t8cha")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0424862, 0.0659004, 0.131265)
-slider_limit_max = 0.095
+[node name="ChargingHandle" parent="Interactions/Aiming" instance=ExtResource("11_t8cha")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0415303, 0.0566498, 0.0808953)
+slider_limit_max = 0.13
 default_on_release = true
 
-[node name="ToMesh" type="RemoteTransform3D" parent="Interactions/WeaponControl/ChargingHandle"]
-remote_path = NodePath("../../../../1919A4/Receiver/ChargingHandle")
-
-[node name="GrabPointHandRight" parent="Interactions/WeaponControl/ChargingHandle" instance=ExtResource("5_pu56s")]
-transform = Transform3D(0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0, 0, 1, 0.0775954, 0.0389012, -0.0882376)
-
-[node name="HandleOrigin" type="Node3D" parent="Interactions/WeaponControl/ChargingHandle"]
+[node name="HandleOrigin" type="Node3D" parent="Interactions/Aiming/ChargingHandle"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.031699, 0, 0)
 
-[node name="InteractableHandle" parent="Interactions/WeaponControl/ChargingHandle/HandleOrigin" instance=ExtResource("3_71yhy")]
+[node name="InteractableHandle" parent="Interactions/Aiming/ChargingHandle/HandleOrigin" instance=ExtResource("3_71yhy")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/WeaponControl/ChargingHandle/HandleOrigin/InteractableHandle"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/Aiming/ChargingHandle/HandleOrigin/InteractableHandle"]
 shape = SubResource("SphereShape3D_t8cha")
 
-[node name="GPRRight" type="Marker3D" parent="Interactions/WeaponControl/ChargingHandle/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
+[node name="GPRRight" type="Marker3D" parent="Interactions/Aiming/ChargingHandle/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
 script = ExtResource("4_7vvfr")
 target = NodePath("../../../GrabPointHandRight")
 metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
 
+[node name="ToMesh" type="RemoteTransform3D" parent="Interactions/Aiming/ChargingHandle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012293, 0, 0)
+remote_path = NodePath("../../../../1919A4/Receiver/ChargingHandle")
+
+[node name="GrabPointHandRight" parent="Interactions/Aiming/ChargingHandle" instance=ExtResource("5_pu56s")]
+transform = Transform3D(0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0, 0, 1, 0.0775954, 0.0389012, -0.0882376)
+
 [node name="AmmoCanZone" parent="Interactions" instance=ExtResource("18_go4du")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.321791, -0.100422, 0.156153)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.321791, -0.0726844, 0.156153)
 grab_distance = 0.1
 snap_require = "AmmoCan30Cal"
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Interactions/AmmoCanZone"]
+[node name="Glowthingy" type="MeshInstance3D" parent="Interactions/AmmoCanZone"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0631527, 0)
-size = Vector3(0.237305, 0.0295715, 0.0974121)
-material = SubResource("StandardMaterial3D_go4du")
+material_override = SubResource("StandardMaterial3D_go4du")
+mesh = SubResource("ArrayMesh_go4du")
 script = SubResource("GDScript_tjfkl")
-freq = 2.0
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Interactions/AmmoCanZone/CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.003479, 0)
-operation = 2
-size = Vector3(0.228516, 0.0255127, 0.0947266)
-material = SubResource("StandardMaterial3D_go4du")
+freq = 5.0
+amp = 0.7
 
 [node name="Firearm" type="Node3D" parent="."]
 script = ExtResource("13_svv0k")
@@ -374,7 +447,7 @@ metadata/_custom_type_script = "uid://drgnfvqkhv78j"
 
 [node name="ActionSliderAuto" parent="Firearm" node_paths=PackedStringArray("slider", "firearm") instance=ExtResource("14_6pebi")]
 rpm = 800
-slider = NodePath("../../Interactions/WeaponControl/ChargingHandle")
+slider = NodePath("../../Interactions/Aiming/ChargingHandle")
 firearm = NodePath("..")
 
 [node name="BeltLoader" type="Node3D" parent="Firearm" node_paths=PackedStringArray("firearm")]
@@ -384,16 +457,22 @@ firearm = NodePath("..")
 [node name="LoadingCoverBlocker" type="Node3D" parent="Firearm"]
 script = SubResource("GDScript_go4du")
 
-[connection signal="hinge_moved" from="Interactions/LoadingCoverOrigin/LoadingCover" to="Firearm/LoadingCoverBlocker" method="_on_loading_cover_hinge_moved"]
-[connection signal="released" from="Interactions/LoadingCoverOrigin/LoadingCover" to="Firearm/LoadingCoverBlocker" method="_on_loading_cover_released"]
-[connection signal="activated" from="Interactions/WeaponControl/GrabPointHandRight/GrabPointInput" to="Firearm" method="trigger_press"]
-[connection signal="deactivated" from="Interactions/WeaponControl/GrabPointHandRight/GrabPointInput" to="Firearm" method="trigger_release"]
-[connection signal="activated" from="Interactions/WeaponControl/GrabPointHandLeft/GrabPointInput" to="Firearm" method="trigger_press"]
-[connection signal="deactivated" from="Interactions/WeaponControl/GrabPointHandLeft/GrabPointInput" to="Firearm" method="trigger_release"]
-[connection signal="has_dropped" from="Interactions/AmmoCanZone" to="Interactions/AmmoCanZone/CSGBox3D" method="show"]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Firearm"]
+stream = SubResource("AudioStreamRandomizer_nvoa2")
+unit_size = 1.0
+max_db = 0.0
+max_polyphony = 32
+
+[connection signal="hinge_moved" from="Interactions/LoadingCover" to="Firearm/LoadingCoverBlocker" method="_on_loading_cover_hinge_moved"]
+[connection signal="released" from="Interactions/LoadingCover" to="Firearm/LoadingCoverBlocker" method="_on_loading_cover_released"]
+[connection signal="activated" from="Interactions/Aiming/GrabPointHandRight/GrabPointInput" to="Firearm" method="trigger_press"]
+[connection signal="deactivated" from="Interactions/Aiming/GrabPointHandRight/GrabPointInput" to="Firearm" method="trigger_release"]
+[connection signal="activated" from="Interactions/Aiming/GrabPointHandLeft/GrabPointInput" to="Firearm" method="trigger_press"]
+[connection signal="deactivated" from="Interactions/Aiming/GrabPointHandLeft/GrabPointInput" to="Firearm" method="trigger_release"]
 [connection signal="has_dropped" from="Interactions/AmmoCanZone" to="Firearm/BeltLoader" method="_on_ammo_can_removed"]
 [connection signal="has_picked_up" from="Interactions/AmmoCanZone" to="Firearm/BeltLoader" method="_on_ammo_can_placed"]
-[connection signal="has_picked_up" from="Interactions/AmmoCanZone" to="Interactions/AmmoCanZone/CSGBox3D" method="hide" unbinds=1]
+[connection signal="fired" from="Firearm" to="1919A4/Receiver/Barrel/BulletEmitter" method="trigger"]
+[connection signal="fired" from="Firearm" to="Firearm/AudioStreamPlayer3D" method="play"]
 
 [editable path="1919A4"]
 [editable path="Firearm/ActionSliderAuto"]

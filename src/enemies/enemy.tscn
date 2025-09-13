@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://voe6qwp6kme4"]
+[gd_scene load_steps=6 format=3 uid="uid://voe6qwp6kme4"]
 
 [ext_resource type="Script" uid="uid://081y474ygbxf" path="res://src/enemies/enemy.gd" id="1_a8hw6"]
 [ext_resource type="PackedScene" uid="uid://c8eu2rh0f8y2q" path="res://src/enemies/hitbox.tscn" id="2_jg4ye"]
@@ -12,19 +12,12 @@ height = 1.6
 radius = 0.319804
 height = 1.65413
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yvjb1"]
-properties/0/path = NodePath(".:progress")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:health")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-
 [node name="Enemy" type="PathFollow3D"]
 cubic_interp = false
 loop = false
 tilt_enabled = false
 script = ExtResource("1_a8hw6")
+speed = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.799732, 0)
@@ -38,6 +31,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.808536, 0)
 shape = SubResource("CapsuleShape3D_yvjb1")
 debug_color = Color(0.969439, 0, 0.461348, 0.42)
 debug_fill = false
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_yvjb1")

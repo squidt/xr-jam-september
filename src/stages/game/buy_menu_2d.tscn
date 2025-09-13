@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://cukbepyyg1dba"]
+
+[sub_resource type="GDScript" id="GDScript_yjkbb"]
+resource_name = "BuyMenu"
+script/source = "extends Control
+
+
+@onready var Ammo := load(\"res://src/firearm/ammo_can.tscn\")
+@onready var mon := $VBoxContainer/HBoxContainer/Label
+
+
+func _ready() -> void:
+	MainStage.instance.money_changed.connect(_update_points)
+
+func _on_buy_ammo_pressed() -> void:
+	if MainStage.instance.player_wallet < 1000:
+		return
+
+	MainStage.instance.player_wallet -= 1000
+	var instance = Ammo.instantiate(0)
+	instance.set_deferred(\"global_position\", MainStage.instance.current_scene.get_node(\"BuySpawn\").global_position)
+
+	MainStage.instance.current_scene.add_child(instance)
+
+
+func _update_points(new) -> void:
+		mon.text = str(new)
+"
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_yjkbb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 405.0
+offset_bottom = 257.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Dough" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "points:"
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="BuyAmmo" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "buy ammo $1000"
+
+[connection signal="pressed" from="VBoxContainer/BuyAmmo" to="." method="_on_buy_ammo_pressed"]
