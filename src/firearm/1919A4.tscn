@@ -173,7 +173,7 @@ radius = 0.0338677
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_go4du"]
 transparency = 1
 blend_mode = 1
-albedo_color = Color(1, 1, 1, 0.00492595)
+albedo_color = Color(1, 1, 1, 0.0084631)
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 5.0
@@ -199,8 +199,9 @@ extends MeshInstance3D
 @export var amp: float = 1.0
 var _time: float = 0.0
 
+
 func _process(delta: float) -> void:
-	if visible:
+	if visible and !Engine.is_editor_hint():
 		_time += delta
 
 		material_override = material_override as StandardMaterial3D
