@@ -64,7 +64,7 @@ ranged_grab_method = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.10352e-05, 0.00170898)
 shape = SubResource("BoxShape3D_otph4")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." index="2"]
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00026156, -0.000534803, 0.00133766)
 size = Vector3(0.222656, 0.142578, 0.0888672)
 material = SubResource("StandardMaterial3D_3m7rv")
@@ -79,7 +79,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00026156, 0.000534803, 0.04
 mesh = SubResource("TextMesh_y1s6p")
 skeleton = NodePath("../..")
 
-[node name="Path3D" type="Path3D" parent="." index="3"]
+[node name="Path3D" type="Path3D" parent="." index="2"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.00867692, -0.0531517, 0.0352945)
 curve = SubResource("Curve3D_otph4")
 script = ExtResource("2_3m7rv")
@@ -90,13 +90,13 @@ columns = 1
 start_offset = 0.238
 height_between = 0.013
 
-[node name="Start" type="Marker3D" parent="." index="4"]
+[node name="Start" type="Marker3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0929583, 0.0917975, 0.0335884)
 
-[node name="End" type="Marker3D" parent="." index="5"]
+[node name="End" type="Marker3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.324036, 0.225246, 0.0335884)
 
-[node name="Belt" type="Node3D" parent="." index="6"]
+[node name="Belt" type="Node3D" parent="." index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0939689, 0.0989153, 0)
 script = ExtResource("4_htttl")
 
@@ -126,10 +126,10 @@ target = NodePath("../../GrabPointHandRight")
 [node name="GPRLeft" parent="Belt/XRToolsInteractableHandle" index="2" node_paths=PackedStringArray("target") instance=ExtResource("10_no8tx")]
 target = NodePath("../../GrabPointHandLeft")
 
-[node name="GrabPointHandLeft" parent="." index="7" instance=ExtResource("4_jmq7e")]
+[node name="GrabPointHandLeft" parent="." index="6" instance=ExtResource("4_jmq7e")]
 transform = Transform3D(0.735707, 0, -0.6773, 0, 1, 0, 0.6773, 0, 0.735707, -0.0343704, 0, -0.0299111)
 
-[node name="GrabPointHandRight" parent="." index="8" instance=ExtResource("7_r3vno")]
+[node name="GrabPointHandRight" parent="." index="7" instance=ExtResource("7_r3vno")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.0348549, 0, -0.0167947)
 
 [connection signal="grabbed" from="." to="Belt" method="_on_ammo_can_grabbed"]

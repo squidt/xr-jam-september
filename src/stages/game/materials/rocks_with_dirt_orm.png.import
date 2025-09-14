@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dcfiaqqlb5hk3"
 path.s3tc="res://.godot/imported/rocks_with_dirt_orm.png-acfcdd22587247e0df88b565fe1c61b0.s3tc.ctex"
+path.etc2="res://.godot/imported/rocks_with_dirt_orm.png-acfcdd22587247e0df88b565fe1c61b0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/stages/game/materials/rocks_with_dirt_orm.png"
-dest_files=["res://.godot/imported/rocks_with_dirt_orm.png-acfcdd22587247e0df88b565fe1c61b0.s3tc.ctex"]
+dest_files=["res://.godot/imported/rocks_with_dirt_orm.png-acfcdd22587247e0df88b565fe1c61b0.s3tc.ctex", "res://.godot/imported/rocks_with_dirt_orm.png-acfcdd22587247e0df88b565fe1c61b0.etc2.ctex"]
 
 [params]
 

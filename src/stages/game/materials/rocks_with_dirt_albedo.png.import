@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c02ym6xndswbc"
 path.s3tc="res://.godot/imported/rocks_with_dirt_albedo.png-204873a4a7776e4dd5c9f268adacf5bb.s3tc.ctex"
+path.etc2="res://.godot/imported/rocks_with_dirt_albedo.png-204873a4a7776e4dd5c9f268adacf5bb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/stages/game/materials/rocks_with_dirt_albedo.png"
-dest_files=["res://.godot/imported/rocks_with_dirt_albedo.png-204873a4a7776e4dd5c9f268adacf5bb.s3tc.ctex"]
+dest_files=["res://.godot/imported/rocks_with_dirt_albedo.png-204873a4a7776e4dd5c9f268adacf5bb.s3tc.ctex", "res://.godot/imported/rocks_with_dirt_albedo.png-204873a4a7776e4dd5c9f268adacf5bb.etc2.ctex"]
 
 [params]
 

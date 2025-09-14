@@ -76,6 +76,10 @@ move_jump={
 3d_physics/layer_22="Hand Pose Areas"
 3d_physics/layer_23="UI Objects"
 
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
+
 [xr]
 
 openxr/enabled=true

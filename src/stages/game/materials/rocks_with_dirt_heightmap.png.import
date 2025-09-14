@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://hrqh48sxah5q"
 path.s3tc="res://.godot/imported/rocks_with_dirt_heightmap.png-268e800685ba98471ce9f7c125c95fc0.s3tc.ctex"
+path.etc2="res://.godot/imported/rocks_with_dirt_heightmap.png-268e800685ba98471ce9f7c125c95fc0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/stages/game/materials/rocks_with_dirt_heightmap.png"
-dest_files=["res://.godot/imported/rocks_with_dirt_heightmap.png-268e800685ba98471ce9f7c125c95fc0.s3tc.ctex"]
+dest_files=["res://.godot/imported/rocks_with_dirt_heightmap.png-268e800685ba98471ce9f7c125c95fc0.s3tc.ctex", "res://.godot/imported/rocks_with_dirt_heightmap.png-268e800685ba98471ce9f7c125c95fc0.etc2.ctex"]
 
 [params]
 
