@@ -3,14 +3,15 @@ class_name AmmoBeltPart extends Node3D
 signal try_attach
 
 const OFFSET_START := 0.238
-const OFFSET_END := 0.558
+const OFFSET_END := 0.478
 
-@onready var handle := $XRToolsInteractableHandle
+@onready var handle := $HandleOrigin/InteractableHandle
 @onready var ammo_path := $"../Path3D"
-@onready var start :=$"../Start"
+@onready var start := $"../Start"
 @onready var end := $"../End"
 
 var is_gun_connected := false
+var ammo_max := 100
 var ammo_count := 100
 
 var _grabbed_by : Node3D = null
@@ -29,7 +30,7 @@ func _process(_delta: float) -> void:
 	ammo_path.start_offset = remap(dist, _total_dist, 0.0, OFFSET_START, OFFSET_END+.05)
 
 	# Snap to finish
-	if ammo_path.start_offset >= OFFSET_END - .1:
+	if ammo_path.start_offset >= OFFSET_END - .05:
 		try_attach.emit()
 
 
@@ -39,7 +40,11 @@ func has_ammo() -> bool:
 
 func take_bullet() -> void:
 	ammo_count -= 1
-	ammo_path.start_offset += 0.013
+
+	# Hide the next unhidden model
+	var idx = ammo_path.instances.find_custom(func(v): return v and v.visible)
+	if idx != -1:
+		ammo_path.instances[idx].visible = false
 
 	if !has_ammo():
 		ammo_path.hide()
@@ -73,3 +78,11 @@ func _on_ammo_can_grabbed(_pickable: Variant, by: Variant) -> void:
 	else:
 		handle.enabled = false
 		belt_detach()
+
+
+# hide correct amount of bullets
+func _on_path_3d_updated() -> void:
+	var fired_count = ammo_max - ammo_count
+	fired_count = min(fired_count, ammo_path.instances.size())
+	for i in range(fired_count):
+		ammo_path.instances[i].hide()

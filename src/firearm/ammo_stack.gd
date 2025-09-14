@@ -4,6 +4,9 @@ extends Path3D
 ## Places ammo along a path [br]
 ## Can be used to create either bullets in a magazine or ammo box
 
+signal updated
+
+
 @export_tool_button("Refresh") var refresh = place_instances
 @export var refresh_on_change: bool = true
 @export var scene: PackedScene
@@ -61,11 +64,15 @@ extends Path3D
 		place_instances()
 
 
+var instances := []
+
+
 func _ready() -> void:
 	curve_changed.connect(place_instances)
 
 
 func clear_instances() -> void:
+	instances.clear()
 	for c in get_children():
 		if c.is_in_group("AmmoStackChildInternal"):
 			c.queue_free()
@@ -112,4 +119,6 @@ func place_instances() -> void:
 		instance.rotate_object_local(Vector3.BACK, deg_to_rad(rotation_local.z))
 
 		instance.add_to_group("AmmoStackChildInternal")
+		instances.push_back(instance)
 		add_child(instance)
+	updated.emit()

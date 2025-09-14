@@ -314,43 +314,43 @@ mesh = SubResource("ArrayMesh_crn2u")
 [node name="Interactions" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.132748, -0.170135)
 
-[node name="LoadingCover" parent="Interactions" instance=ExtResource("4_ffhk0")]
+[node name="Aiming" parent="Interactions" instance=ExtResource("2_71yhy")]
+joystick_x_limit_min = -5.0
+joystick_x_limit_max = 10.0
+
+[node name="LoadingCover" parent="Interactions/Aiming" instance=ExtResource("4_ffhk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0879494, 0.0698217)
 hinge_limit_min = -105.0
 hinge_limit_max = 0.0
 
-[node name="HandleOrigin" type="Node3D" parent="Interactions/LoadingCover"]
+[node name="HandleOrigin" type="Node3D" parent="Interactions/Aiming/LoadingCover"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0176959, 0.157751)
 
-[node name="InteractableHandle" parent="Interactions/LoadingCover/HandleOrigin" instance=ExtResource("3_71yhy")]
+[node name="InteractableHandle" parent="Interactions/Aiming/LoadingCover/HandleOrigin" instance=ExtResource("3_71yhy")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/LoadingCover/HandleOrigin/InteractableHandle"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/Aiming/LoadingCover/HandleOrigin/InteractableHandle"]
 shape = SubResource("SphereShape3D_c4koj")
 
-[node name="GPRRight" type="Marker3D" parent="Interactions/LoadingCover/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
+[node name="GPRRight" type="Marker3D" parent="Interactions/Aiming/LoadingCover/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
 script = ExtResource("4_7vvfr")
 target = NodePath("../../../GrabPointHandRight")
 metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
 
-[node name="GPRLeft" type="Marker3D" parent="Interactions/LoadingCover/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
+[node name="GPRLeft" type="Marker3D" parent="Interactions/Aiming/LoadingCover/HandleOrigin/InteractableHandle" node_paths=PackedStringArray("target")]
 script = ExtResource("4_7vvfr")
 target = NodePath("../../../GrabPointHandLeft")
 metadata/_custom_type_script = "uid://cfi3y8s6syw7o"
 
-[node name="ToMesh" type="RemoteTransform3D" parent="Interactions/LoadingCover"]
-remote_path = NodePath("../../../1919A4/Receiver/Cover")
+[node name="ToMesh" type="RemoteTransform3D" parent="Interactions/Aiming/LoadingCover"]
+remote_path = NodePath("../../../../1919A4/Receiver/Cover")
 
-[node name="GrabPointHandRight" parent="Interactions/LoadingCover" instance=ExtResource("5_pu56s")]
+[node name="GrabPointHandRight" parent="Interactions/Aiming/LoadingCover" instance=ExtResource("5_pu56s")]
 transform = Transform3D(0.417122, -1.8233e-08, 0.908851, 0.908851, -3.97271e-08, -0.417122, 4.37114e-08, 1, 1.91069e-15, -0.0450277, 0.023623, 0.181225)
 hand_pose = SubResource("Resource_crn2u")
 
-[node name="GrabPointHandLeft" parent="Interactions/LoadingCover" instance=ExtResource("6_f03vt")]
+[node name="GrabPointHandLeft" parent="Interactions/Aiming/LoadingCover" instance=ExtResource("6_f03vt")]
 transform = Transform3D(0.464904, 2.03216e-08, -0.885361, -0.885361, -3.87004e-08, -0.464904, -4.37114e-08, 1, 1.30721e-15, 0.0507981, 0.0261818, 0.182048)
 hand_pose = SubResource("Resource_h7tgr")
-
-[node name="Aiming" parent="Interactions" instance=ExtResource("2_71yhy")]
-joystick_x_limit_min = -5.0
-joystick_x_limit_max = 10.0
 
 [node name="GrabPointHandRight" parent="Interactions/Aiming" instance=ExtResource("5_pu56s")]
 transform = Transform3D(1, 0, 0, 0, 0.977717, -0.209926, 0, 0.209926, 0.977717, 0.0312987, 0.112875, 0.418398)
@@ -375,15 +375,10 @@ metadata/_custom_type_script = "uid://ex8evc6wlcxk"
 [node name="ToMesh" type="RemoteTransform3D" parent="Interactions/Aiming"]
 remote_path = NodePath("../../../1919A4/Receiver")
 
-[node name="ToLoadingCoverInteraction" type="RemoteTransform3D" parent="Interactions/Aiming"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0879494, 0.0698217)
-remote_path = NodePath("../../LoadingCover")
-
 [node name="GunHandleOrigin" type="Node3D" parent="Interactions/Aiming"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0744184, 0.478404)
 
 [node name="InteractableHandle" parent="Interactions/Aiming/GunHandleOrigin" instance=ExtResource("3_71yhy")]
-press_to_hold = false
 second_hand_grab = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/Aiming/GunHandleOrigin/InteractableHandle"]
@@ -464,8 +459,8 @@ unit_size = 1.0
 max_db = 0.0
 max_polyphony = 32
 
-[connection signal="hinge_moved" from="Interactions/LoadingCover" to="Firearm/LoadingCoverBlocker" method="_on_loading_cover_hinge_moved"]
-[connection signal="released" from="Interactions/LoadingCover" to="Firearm/LoadingCoverBlocker" method="_on_loading_cover_released"]
+[connection signal="hinge_moved" from="Interactions/Aiming/LoadingCover" to="Firearm/LoadingCoverBlocker" method="_on_loading_cover_hinge_moved"]
+[connection signal="released" from="Interactions/Aiming/LoadingCover" to="Firearm/LoadingCoverBlocker" method="_on_loading_cover_released"]
 [connection signal="activated" from="Interactions/Aiming/GrabPointHandRight/GrabPointInput" to="Firearm" method="trigger_press"]
 [connection signal="deactivated" from="Interactions/Aiming/GrabPointHandRight/GrabPointInput" to="Firearm" method="trigger_release"]
 [connection signal="activated" from="Interactions/Aiming/GrabPointHandLeft/GrabPointInput" to="Firearm" method="trigger_press"]

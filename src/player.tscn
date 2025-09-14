@@ -16,9 +16,11 @@ script = ExtResource("1_rclot")
 
 [node name="PlayerBody" parent="." instance=ExtResource("1_lowyb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0.1)
+collision_mask = 1019
 max_slides = 4
 player_calibrate_height = false
 player_height_max = 2.0
+push_rigid_bodies = false
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
@@ -33,7 +35,7 @@ tracker = &"left_hand"
 grab_distance = 0.1
 
 [node name="MovementDirect" parent="LeftHand" instance=ExtResource("9_nc72e")]
-max_speed = 2.0
+max_speed = 1.4
 strafe = true
 
 [node name="MovementCrouch" parent="LeftHand" instance=ExtResource("10_qntp5")]

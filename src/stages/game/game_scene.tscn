@@ -270,7 +270,7 @@ material_override = SubResource("StandardMaterial3D_swjlf")
 mesh = SubResource("ArrayMesh_0gct7")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Table"]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Table/StaticBody3D"]
