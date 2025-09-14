@@ -25,7 +25,7 @@ func _process(_delta: float) -> void:
 	if Engine.is_editor_hint() or !_grabbed_by:
 		return
 
-	var dist = _grabbed_by.global_position.distance_to(end.global_position)
+	var dist = end.global_position.x - _grabbed_by.global_position.x
 	ammo_path.start_offset = remap(dist, _total_dist, 0.0, OFFSET_START, OFFSET_END+.05)
 
 	# Snap to finish
